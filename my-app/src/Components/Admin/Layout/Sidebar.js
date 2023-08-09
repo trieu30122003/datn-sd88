@@ -21,6 +21,12 @@ export default function Sidebar() {
               <span className="text">Customer</span>
             </Link>
           </li>
+          <li className={value === "bill" ? "active" : ""}>
+            <Link to="/api/bill/new" onClick={() => setValue("bill")}>
+              <i class="bi bi-person-lines-fill"></i>
+              <span className="text">Bill</span>
+            </Link>
+          </li>
           <li className={value === "appointment" ? "active" : ""}>
             <Link
               to="/admin/appointment"
