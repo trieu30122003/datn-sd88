@@ -35,13 +35,13 @@ export default function Sidebar() {
             </Link>
           </li>
           <li className={value === "bill" ? "active" : ""}>
-            <Link to="/api/bill/new" onClick={() => setValue("bill")}>
+            <Link to="/brand" onClick={() => setValue("bill")}>
               <i class="bi bi-person-lines-fill"></i>
               <span className="text">Hãng</span>
             </Link>
           </li>
           <li className={value === "bill" ? "active" : ""}>
-            <Link to="/api/bill/new" onClick={() => setValue("bill")}>
+            <Link to="/color" onClick={() => setValue("bill")}>
             <FontAwesomeIcon icon={faPalette} />
               <span className="text">Màu sắc</span>
             </Link>
