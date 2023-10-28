@@ -10,8 +10,11 @@ class Bill_Service{
     save(bill){
         return instance.post(API + "new/add/", bill);
     }
-    update(bill,id){
+    update(id,bill){
         return instance.put(API + "update/"+id,bill);
+    }
+    delete(id){
+        return instance.put(API + "delete/"+id);
     }
 }
 export default new Bill_Service();

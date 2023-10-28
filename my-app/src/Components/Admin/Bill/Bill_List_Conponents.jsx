@@ -16,6 +16,15 @@ export default function Bill_List_Conponents() {
             setPageData(data);
         } catch (error) { console.log(error); }
     };
+    const Delete = (e) => {
+        console.log(e);
+        Bill_Service.delete(e).then((res) => {
+            if (res.status === 200) {
+                alert("Xóa hóa đơn thành công!");
+                window.location = "/api/bill/new";
+            }
+        });
+    };
     return (
         <>
             <Sidebar />
@@ -23,7 +32,7 @@ export default function Bill_List_Conponents() {
                 <main>
                     <div className="table-data container">
                         <div className="order">
-                            <h2 style={{textAlign:"center"}}>Hóa đơn</h2>
+                            <h2 style={{ textAlign: "center" }}>Hóa đơn</h2>
                             <br />
                             <div className="head">
                                 {/* <i className="bx bx-filter" /> */}
@@ -32,9 +41,12 @@ export default function Bill_List_Conponents() {
                                         Add
                                     </Link>
                                 </div>
-                                <div style={{display:"flex", position:"relative", left:"500px"}}>
-                                    <input className="form-control" type="text" />
-                                    <i class="btn border bi bi-search"></i>
+                                <div style={{ display: "flex", position: "relative", left: "500px" }}>
+                                    <input className="form-control" type="date" name="searchNgayTao"/>
+                                    <Link to={`/api/bill/search?ngayTao=`}>
+                                        <i class="btn border bi bi-search"></i>
+                                    </Link>
+
                                 </div>
                             </div>
                             <br />
@@ -54,7 +66,7 @@ export default function Bill_List_Conponents() {
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody style={{ textAlign: "center" }}>
+                                <tbody>
                                     {
                                         pageData.map(
                                             (bill, index) =>
@@ -70,9 +82,20 @@ export default function Bill_List_Conponents() {
                                                     <td>lichHen</td>
                                                     <td>{bill.trangThai == 1 ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                                                     <td>
-                                                        <Link to={`/api/bill/new/${bill.id}`}>
-                                                        <i class="bi bi-pencil-square"></i>
-                                                        </Link>
+                                                        <button className="btn btn-sm btn-info">
+                                                            <Link to={`/api/bill/new/${bill.id}`}>
+                                                                <i class="bi bi-pencil-square"></i>
+                                                            </Link>
+                                                        </button>
+                                                        {/* <Link to={`/api/bill/delete/${bill.id}`}>
+                                                            <i class="bi bi-trash text-danger"></i>
+                                                        </Link> */}
+                                                        <button
+                                                            onClick={(e) => Delete(bill.id)}
+                                                            className="btn btn-sm btn-danger"
+                                                        >
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                         )
