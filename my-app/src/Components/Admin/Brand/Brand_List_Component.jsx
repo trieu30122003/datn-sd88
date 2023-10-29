@@ -83,7 +83,7 @@ export default function Brand_List_Components() {
         <main>
           <div className="table-data container">
             <div className="order">
-              <h2 style={{ textAlign: "center" }}>Màu sắc</h2>
+              <h2 style={{ textAlign: "center" }}>Hãng</h2>
               <br />
               <div className="head">
                 {/* <i className="bx bx-filter" /> */}
