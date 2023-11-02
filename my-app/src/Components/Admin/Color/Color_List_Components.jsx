@@ -101,9 +101,9 @@ export default function Color_List_Components() {
               </div>
               <br />
               <Table columns={columns} dataSource={pageData} />
-              <Pagination
+              {/* <Pagination
                 defaultCurrent={0}
-              />
+              /> */}
             </div>
           </div>
         </main>
