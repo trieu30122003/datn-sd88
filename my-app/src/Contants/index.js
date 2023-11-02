@@ -26,6 +26,14 @@ export const APP_ROUTERS = {
       LABEL: 'QUAN LI MAU SAC',
       VALUE: '/color'
     },
+    VIEW_ADD: {
+      LABEL: 'QUAN LI MAU SAC',
+      VALUE: '/color/add'
+    },
+    DETAIL: {
+      LABEL: 'QUAN LI MAU SAC',
+      VALUE: '/color/:colorCode'
+    },
   },
   BRAND: {
     INDEX: {

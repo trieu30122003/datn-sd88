@@ -15,6 +15,8 @@ import Bill_Detail_Components from "./Components/Admin/Bill/Bill_Detail_Conponen
 import Bill_Add_Components from "./Components/Admin/Bill/Bill_ViewAdd_Conponents";
 import Color_List_Components from "./Components/Admin/Color/Color_List_Components";
 import Brand_List_Components from "./Components/Admin/Brand/Brand_List_Component";
+import Color_Add_Components from "./Components/Admin/Color/Color_Add_Components";
+import Color_Detail_Components from "./Components/Admin/Color/Color_Detail_Components";
 function App() {
   return (
     <div className="App">
@@ -30,7 +32,11 @@ function App() {
         <Route path={APP_ROUTERS.BILL.INDEX.VALUE} element={<Bill_List_Conponents />}></Route>
         <Route path={APP_ROUTERS.BILL.DETAIL.VALUE} element={<Bill_Detail_Components />}></Route>
         <Route path={APP_ROUTERS.BILL.VIEW_ADD.VALUE} element={<Bill_Add_Components />}></Route>
+
         <Route path={APP_ROUTERS.COLOR.INDEX.VALUE} element={<Color_List_Components />}></Route>
+        <Route path={APP_ROUTERS.COLOR.VIEW_ADD.VALUE} element={<Color_Add_Components />}></Route>
+        <Route path={APP_ROUTERS.COLOR.DETAIL.VALUE} element={<Color_Detail_Components />}></Route>
+
         <Route path={APP_ROUTERS.BRAND.INDEX.VALUE} element={<Brand_List_Components />}></Route>
         
       </Routes>
