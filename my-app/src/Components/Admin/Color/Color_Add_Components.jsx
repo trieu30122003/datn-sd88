@@ -20,10 +20,12 @@ function Color_Add_Components() {
       colorCode,
       colorName,
     };
+    
     Color_Service.save(color).then((res) => {
       if (res.status === 200) {
         alert("Thêm màu sắc thành công!");
         window.location = "/color";
+        
       }
     });
   }

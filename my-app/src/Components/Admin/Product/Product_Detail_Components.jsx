@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../Layout/Sidebar";
 import { Link, useParams } from "react-router-dom";
-import Color_Service from "../../../Api/Color_Service";
+import Product_Service from "../../../Api/Product_Service";
 
-export default function Color_Detail_Components() {
-  const { colorCode } = useParams();
-  console.log(colorCode);
+export default function Product_Detail_Components() {
+  const { productName } = useParams();
+  console.log(productName);
   // const [colorCode, setMaMau] = useState("");
-  const [colorName, setTenMau] = useState("");
+  const [, setTenMau] = useState("");
   useEffect(() => {
     Color_Service.getById(colorCode).then((res) => {
       let color = res.data;
@@ -15,7 +15,6 @@ export default function Color_Detail_Components() {
 
     })
   }, [colorCode])
-  
   const changeTenMau = (e) => {
     setTenMau(e.target.value);
   }
@@ -50,7 +49,7 @@ export default function Color_Detail_Components() {
                       <label className="form-label">
                         Mã màu
                       </label>
-                      <input className="form-control" type="text"  value={colorCode} disabled/>
+                      <input className="form-control" type="text"  value={colorCode}/>
                     </div>
                   </div>
                   <div className="col-md-5">

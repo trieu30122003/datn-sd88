@@ -35,6 +35,7 @@ export const APP_ROUTERS = {
       VALUE: '/color/:colorCode'
     },
   },
+
   BRAND: {
     INDEX: {
       LABEL: 'QUAN LI HANG',
@@ -62,5 +63,35 @@ export const APP_ROUTERS = {
       LABEL: 'QUAN LI KHACH HANG',
       VALUE: '/customer/:customerCode'
     }
-  }
+  },
+
+  PRODUCT: {
+    INDEX: {
+      LABEL: 'QUAN LI SAN PHAM',
+      VALUE: '/product'
+    },
+    VIEW_ADD: {
+      LABEL: 'QUAN LI SAN PHAM',
+      VALUE: '/product/add'
+    },
+    DETAIL: {
+      LABEL: 'QUAN LI SAN PHAM',
+      VALUE: '/product/:productName'
+    },
+  },
+
+  EMPLOYEE: {
+    INDEX: {
+      LABEL: 'QUAN LI NHAN VIEN',
+      VALUE: '/employee'
+    },
+    VIEW_ADD: {
+      LABEL: 'QUAN LI NHAN VIEN',
+      VALUE: '/employee/add'
+    },
+    DETAIL: {
+      LABEL: 'QUAN LI NHAN VIEN',
+      VALUE: '/employee/:employeeCode'
+    },
+  },
 }

@@ -22,12 +22,12 @@ export default function Color_List_Components() {
       console.log(error);
     }
   };
-  const handlePageChange = (page) => {
-    setPagination({
-      ...pagination,
-      current: page,
-    });
-  };
+  // const handlePageChange = (page) => {
+  //   setPagination({
+  //     ...pagination,
+  //     current: page,
+  //   });
+  // };
   const Delete = (e) => {
     console.log(e);
     Color_Service.delete(e).then((res) => {
