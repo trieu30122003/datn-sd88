@@ -182,7 +182,7 @@ function Employee_Add_Components() {
                       <label className="form-label">Mật khẩu </label>
                       <input
                         className="form-control"
-                        type="text"
+                        type="password"
                         onChange={changeEncryptedPassword}
                       />
                     </div>
