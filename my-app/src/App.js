@@ -17,6 +17,11 @@ import Color_List_Components from "./Components/Admin/Color/Color_List_Component
 import Brand_List_Components from "./Components/Admin/Brand/Brand_List_Component";
 import Color_Add_Components from "./Components/Admin/Color/Color_Add_Components";
 import Color_Detail_Components from "./Components/Admin/Color/Color_Detail_Components";
+import Brand_Add_Components from "./Components/Admin/Brand/Brand_Add_Components";
+import Brand_Detail_Components from "./Components/Admin/Brand/Brand_Detail_Components";
+import Customer_List_Components from "./Components/Admin/Customer/Customer_List_Components";
+import Customer_Add_Components from "./Components/Admin/Customer/Customer_Add_Conponents";
+import Customer_Detail_Components from "./Components/Admin/Customer/Customer_Detail_Components";
 function App() {
   return (
     <div className="App">
@@ -38,6 +43,12 @@ function App() {
         <Route path={APP_ROUTERS.COLOR.DETAIL.VALUE} element={<Color_Detail_Components />}></Route>
 
         <Route path={APP_ROUTERS.BRAND.INDEX.VALUE} element={<Brand_List_Components />}></Route>
+        <Route path={APP_ROUTERS.BRAND.VIEW_ADD.VALUE} element={<Brand_Add_Components/>}></Route>
+        <Route path={APP_ROUTERS.BRAND.DETAIL.VALUE} element={<Brand_Detail_Components/>}></Route>
+
+        <Route path={APP_ROUTERS.Customer.INDEX.VALUE} element={<Customer_List_Components />}></Route>
+        <Route path={APP_ROUTERS.Customer.VIEW_ADD.VALUE} element={<Customer_Add_Components />}></Route>
+        <Route path={APP_ROUTERS.Customer.DETAIL.VALUE} element={<Customer_Detail_Components />}></Route>
         
       </Routes>
     </div>

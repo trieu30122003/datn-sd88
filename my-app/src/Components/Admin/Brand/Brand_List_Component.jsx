@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
 import Brand_Service from "../../../Api/Brand_Service";
-import { Table } from 'antd'
-
+import { Button, Space, Table } from 'antd'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash,faPen,faPlus } from '@fortawesome/free-solid-svg-icons'
 export default function Brand_List_Components() {
   const [pageData, setPageData] = useState([]);
 
@@ -19,6 +20,23 @@ export default function Brand_List_Components() {
       console.log(error);
     }
   };
+  const Delete = (e) => {
+    // console.log(e);
+    Brand_Service.delete(e).then((res) => {
+      if (res.status === 200) {
+        alert("Xóa hóa đơn thành công!");
+        window.location = "/brand";
+      }
+    });
+  };
+  const Edit = (e) => {
+    Brand_Service.getById(e).then((res) => {
+      if (res.status === 200) {
+        // alert("Xóa hóa đơn thành công!");
+        window.location = `/brand/${res.data.brandCode}`;
+      }
+    });
+  };
   // const Delete = (e) => {
   //   console.log(e);
   //   Bill_Service.delete(e).then((res) => {
@@ -31,11 +49,11 @@ export default function Brand_List_Components() {
   console.log("data", pageData);
 
   const columns = [
-    {
-      title: 'Mã hãng',
-      dataIndex: 'brandCode',
-      key: 'brandCode',
-    },
+    // {
+    //   title: 'Mã hãng',
+    //   dataIndex: 'brandCode',
+    //   key: 'brandCode',
+    // },
     {
       title: 'Tên hãng',
       dataIndex: 'brandName',
@@ -75,6 +93,18 @@ export default function Brand_List_Components() {
         return text === 0 ? 'Đang hoạt động' : 'Không hoạt động';
       },
     },
+    {
+      title: 'Action',
+      dataIndex: 'brandCode',
+      key: 'action',
+      render: (_, record) => (
+        <Space size="middle">
+          {/* <a>Invite {record.name}</a> */}
+          <Button danger type="primary" onClick={() => Delete(record.brandCode)}><FontAwesomeIcon icon={faTrash} /></Button>
+          <Button type="primary" onClick={() => Edit(record.brandCode)}><FontAwesomeIcon icon={faPen} /></Button>
+        </Space>
+      ),
+    },
   ];
   return (
     <>
@@ -88,8 +118,8 @@ export default function Brand_List_Components() {
               <div className="head">
                 {/* <i className="bx bx-filter" /> */}
                 <div>
-                  <Link to="" className="btn btn-primary">
-                    Add
+                  <Link to="/brand/add" className="btn btn-primary">
+                  <FontAwesomeIcon icon={faPlus} />
                   </Link>
                 </div>
                 <div style={{ display: "flex", position: "relative", left: "500px" }}>
@@ -101,7 +131,7 @@ export default function Brand_List_Components() {
                 </div>
               </div>
               <br />
-              <Table columns={columns} dataSource={pageData} pagination={{ pageSize: 1, }} scroll={{ y: 240, }} />
+              <Table columns={columns} dataSource={pageData}  />
             </div>
           </div>
         </main>

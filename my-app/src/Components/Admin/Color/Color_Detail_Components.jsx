@@ -49,7 +49,7 @@ export default function Color_Detail_Components() {
                       <label className="form-label">
                         Mã màu
                       </label>
-                      <input className="form-control" type="text"  value={colorCode}/>
+                      <input className="form-control" type="text"  value={colorCode} disabled/>
                     </div>
                   </div>
                   <div className="col-md-5">

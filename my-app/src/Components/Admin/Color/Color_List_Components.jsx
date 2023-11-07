@@ -3,26 +3,21 @@ import { Link } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
 import Color_Service from "../../../Api/Color_Service";
 import { Button, Pagination, Space, Table } from 'antd'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash,faPen,faPlus } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function Color_List_Components() {
   const [pageData, setPageData] = useState([]);
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 2,
-    total: 0,
-  });
+
   useEffect(() => {
     fetchData();
-  }, [pagination])
+  }, [])
   const fetchData = async () => {
     try {
       const response = await Color_Service.getAllColor();
       const data = response.data;
       setPageData(data);
-      setPagination({
-        ...pagination,
-        total: response.total,
-      });
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +38,6 @@ export default function Color_List_Components() {
     });
   };
   const Edit = (e) => {
-    console.log(e);
     Color_Service.getById(e).then((res) => {
       if (res.status === 200) {
         // alert("Xóa hóa đơn thành công!");
@@ -51,6 +45,11 @@ export default function Color_List_Components() {
       }
     });
   };
+  const searchName = (e) => {
+    Color_Service.search(e).then((res) => {
+      
+    })
+  }
   console.log("data", pageData);
 
   const columns = [
@@ -71,8 +70,8 @@ export default function Color_List_Components() {
       render: (_, record) => (
         <Space size="middle">
           {/* <a>Invite {record.name}</a> */}
-          <Button type="primary" onClick={() => Delete(record.colorCode)}>Xóa</Button>
-          <Button type="primary" onClick={() => Edit(record.colorCode)}>Edit</Button>
+          <Button danger type="primary" onClick={() => Delete(record.colorCode)}><FontAwesomeIcon icon={faTrash} /></Button>
+          <Button type="primary" onClick={() => Edit(record.colorCode)}><FontAwesomeIcon icon={faPen} /></Button>
         </Space>
       ),
     },
@@ -89,18 +88,18 @@ export default function Color_List_Components() {
               <div className="head">
                 {/* <i className="bx bx-filter" /> */}
                 <div>
-                  <Link className="btn btn-primary" to='/color/add'>ADD</Link>
+                  <Link className="btn btn-primary" to='/color/add'><FontAwesomeIcon icon={faPlus} /></Link>
                 </div>
                 <div style={{ display: "flex", position: "relative", left: "500px" }}>
-                  <input className="form-control" type="text" name="searchNgayTao" />
-                  <Link to={`/api/bill/search?ngayTao=`}>
+                  <input className="form-control" type="text" name="colorName" />
+                  <Link to={`/color/search?colorName=`}>
                     <i class="btn border bi bi-search"></i>
                   </Link>
 
                 </div>
               </div>
               <br />
-              <Table columns={columns} dataSource={pageData} />
+              <Table columns={columns} dataSource={pageData} pagination={{ pageSize: 5 }}/>
               {/* <Pagination
                 defaultCurrent={0}
               /> */}

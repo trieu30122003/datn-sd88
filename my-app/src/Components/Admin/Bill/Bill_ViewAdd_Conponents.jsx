@@ -124,7 +124,7 @@ function Bill_Add_Components() {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-5">
+                  {/* <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">
                         Ngày trả xe
@@ -132,8 +132,8 @@ function Bill_Add_Components() {
                       <input className="form-control" type="date"
                         onChange={changeNgayTraXe} />
                     </div>
-                  </div>
-                  <div className="col-md-5">
+                  </div> */}
+                  {/* <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">
                         Ngày nhận xe
@@ -141,7 +141,7 @@ function Bill_Add_Components() {
                       <input className="form-control" type="date"
                         onChange={changeNgayNhanXe} />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="row">
                   <div className="col-md-5">
@@ -163,7 +163,7 @@ function Bill_Add_Components() {
                                             onChange={changeLichHen}/>
                                         </div>
                                     </div> */}
-                  <div className="row">
+                  {/* <div className="row">
                     <div className="col-md-5">
                       <label className="form-label">
                         Loại hóa đơn
@@ -177,7 +177,7 @@ function Bill_Add_Components() {
                           checked={!loaiHoaDon} onChange={() => setLoaiHoaDon(false)} /> Offline
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* <div className="row">
@@ -222,7 +222,7 @@ function Bill_Add_Components() {
                       </div>
                       <div className="col-md-2">
                         <br />
-                        <div className="col-md-2 padd2"><Link className="btn btn-danger" to="/api/bill/new">Back</Link></div>
+                        <div className="col-md-2 padd2"><Link className="btn btn-danger" to="/bill">Back</Link></div>
                       </div>
                     </div>
                   </div>

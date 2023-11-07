@@ -23,7 +23,7 @@ export default function Sidebar() {
             </Link>
           </li>
           <li className={value === "bill" ? "active" : ""}>
-            <Link to="/api/bill/new" onClick={() => setValue("bill")}>
+            <Link to="/bill" onClick={() => setValue("bill")}>
             <i class="bi bi-receipt"></i>
               <span className="text">Bill</span>
             </Link>
@@ -59,7 +59,7 @@ export default function Sidebar() {
             </Link>
           </li>
           <li className={value === "bill" ? "active" : ""}>
-            <Link to="/api/bill/new" onClick={() => setValue("bill")}>
+            <Link to="/customer" onClick={() => setValue("bill")}>
               <i class="bi bi-person-lines-fill"></i>
               <span className="text">Khách hàng</span>
             </Link>

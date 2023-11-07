@@ -1,18 +1,18 @@
 import { instance } from "./instance";
-const API = "brand";
-class Brand_Service{
-  getAllBrand() {
+const API = "customer";
+class Customer_Service{
+  getAllCustomer() {
     return instance.get(`${API}`);
     // ?page=${9}
   }
   getById(id) {
     return instance.get(`${API}/${id}`);
   }
-  save(brand) {
-    return instance.post(API, brand);
+  save(kh) {
+    return instance.post(API, kh);
   }
-  update(id,brand){
-      return instance.put(`${API}/${id}`,brand);
+  update(id,kh){
+      return instance.put(`${API}/${id}`,kh);
   }
   delete(id){
       return instance.delete(`${API}/${id}`);
@@ -21,4 +21,4 @@ class Brand_Service{
       return instance.get(`${API}/search?colorName=${name}`);
   }
 }
-export default new Brand_Service();
+export default new Customer_Service();

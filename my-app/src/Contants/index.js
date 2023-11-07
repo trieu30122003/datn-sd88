@@ -2,11 +2,11 @@ export const APP_ROUTERS = {
   BILL: {
     INDEX: {
       LABEL: 'QUAN LI HOA DON',
-      VALUE: '/api/bill/new'
+      VALUE: '/bill'
     },
     VIEW_ADD: {
       LABEL: 'QUAN LI HOA DON',
-      VALUE: '/api/bill/new/add/'
+      VALUE: '/bill/add'
     },
     // SEARCH: {
     //     LABEL: 'QUAN LI HOA DON',
@@ -14,11 +14,11 @@ export const APP_ROUTERS = {
     // },
     DETAIL: {
       LABEL: 'QUAN LI HOA DON',
-      VALUE: '/api/bill/new/:id'
+      VALUE: '/bill/:billCode'
     },
     DELETE: {
       LABEL: 'QUAN LI HOA DON',
-      VALUE: '/api/bill/delete/:id'
+      VALUE: '/bill/:billCode'
     },
   },
   COLOR: {
@@ -39,6 +39,28 @@ export const APP_ROUTERS = {
     INDEX: {
       LABEL: 'QUAN LI HANG',
       VALUE: '/brand'
+    },
+    VIEW_ADD: {
+      LABEL: 'QUAN LI HANG',
+      VALUE: '/brand/add'
+    },
+    DETAIL: {
+      LABEL: 'QUAN LI HANG',
+      VALUE: '/brand/:brandCode'
+    }
+  },
+  Customer: {
+    INDEX: {
+      LABEL: 'QUAN LI KHACH HANG',
+      VALUE: '/customer'
+    },
+    VIEW_ADD: {
+      LABEL: 'QUAN LI KHACH HANG',
+      VALUE: '/customer/add'
+    },
+    DETAIL: {
+      LABEL: 'QUAN LI KHACH HANG',
+      VALUE: '/customer/:customerCode'
     }
   }
 }

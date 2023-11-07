@@ -3,7 +3,7 @@ import { instance } from "./instance";
 const API = "color"
 class Color_Service {
   getAllColor() {
-    return instance.get(`${API}?page=${9}`);
+    return instance.get(API);
   }
   getById(id) {
     return instance.get(`${API}/${id}`);
@@ -17,5 +17,8 @@ class Color_Service {
   delete(id){
       return instance.delete(`${API}/${id}`);
   }
+  // search(name){
+  //     return instance.get(`${API}/search?colorName=${name}`);
+  // }
 }
 export default new Color_Service();

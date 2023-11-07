@@ -45,7 +45,7 @@ function Color_Add_Components() {
                       <label className="form-label">
                         Mã màu
                       </label>
-                      <input className="form-control" type="text" onChange={changeMaMau} />
+                      <input className="form-control" type="text" disabled/>
                     </div>
                   </div>
                   <div className="col-md-5">
