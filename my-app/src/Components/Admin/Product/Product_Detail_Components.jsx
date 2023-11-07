@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
-import Color_Service from "../../../Api/Color_Service";
+import { Link, useParams } from "react-router-dom";
+import Product_Service from "../../../Api/Product_Service";
 
-function Color_Add_Components() {
-  const [colorCode, setMaMau] = useState("");
-  const [colorName, setTenMau] = useState("");
+export default function Product_Detail_Components() {
+  const { productName } = useParams();
+  console.log(productName);
+  // const [colorCode, setMaMau] = useState("");
+  const [, setTenMau] = useState("");
+  useEffect(() => {
+    Color_Service.getById(colorCode).then((res) => {
+      let color = res.data;
+      setTenMau(color.colorName);
 
-  const changeMaMau = (e) => {
-    setMaMau(e.target.value);
-  };
+    })
+  }, [colorCode])
   const changeTenMau = (e) => {
     setTenMau(e.target.value);
-  };
-
-  const save = (e) => {
+  }
+  const update = (e) => {
     e.preventDefault();
     let color = {
-      colorCode,
-      colorName,
+      // colorCode,
+      colorName
     };
-    
-    Color_Service.save(color).then((res) => {
+    Color_Service.update(colorCode,color).then((res) => {
       if (res.status === 200) {
-        alert("Thêm màu sắc thành công!");
-        window.location = "/color";
-        
+        alert("Update màu sắc thành công!");
+        window.location = `/color`;
       }
     });
   }
@@ -38,7 +40,7 @@ function Color_Add_Components() {
         <main>
           <div>
             <div className="container">
-              <h3 className="text-center">ADD Color</h3>
+              <h3 className="text-center">Detail Color</h3>
               <br />
               <form className="col-md-12" id="myForm">
                 <div className="row">
@@ -47,7 +49,7 @@ function Color_Add_Components() {
                       <label className="form-label">
                         Mã màu
                       </label>
-                      <input className="form-control" type="text" onChange={changeMaMau} />
+                      <input className="form-control" type="text"  value={colorCode}/>
                     </div>
                   </div>
                   <div className="col-md-5">
@@ -55,7 +57,7 @@ function Color_Add_Components() {
                       <label className="form-label">
                         Tên màu
                       </label>
-                      <input className="form-control" type="text" onChange={changeTenMau} />
+                      <input className="form-control" type="text" value={colorName} onChange={changeTenMau}/>
                     </div>
                   </div>
                 </div>
@@ -64,7 +66,7 @@ function Color_Add_Components() {
                     <div className="row">
                       <div className="col-md-5">
                         <br />
-                        <button type="submit" className="btn btn-success" onClick={save} >ADD</button>
+                        <button type="submit" className="btn btn-success" onClick={update}>UpDate</button>
                       </div>
                       <div className="col-md-2">
                         <br />
@@ -79,6 +81,5 @@ function Color_Add_Components() {
         </main>
       </section>
     </>
-  );
+  )
 }
-export default Color_Add_Components;

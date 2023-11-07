@@ -1,0 +1,20 @@
+import { instance } from "./instance";
+const API = "employee"
+class Employee_Service {
+  getAllEmployee() {
+    return instance.get(`${API}?page=${9}`);
+  }
+  getById(id) {
+    return instance.get(`${API}/${id}`);
+  }
+  save(employee) {
+    return instance.post(API, employee);
+  }
+  update(id,employee){
+      return instance.put(`${API}/${id}`,employee);
+  }
+  delete(id){
+      return instance.delete(`${API}/${id}`);
+  }
+}
+export default new Employee_Service();

@@ -15,6 +15,7 @@ export default function Color_Detail_Components() {
 
     })
   }, [colorCode])
+  
   const changeTenMau = (e) => {
     setTenMau(e.target.value);
   }
