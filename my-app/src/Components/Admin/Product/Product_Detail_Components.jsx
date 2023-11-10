@@ -4,30 +4,83 @@ import { Link, useParams } from "react-router-dom";
 import Product_Service from "../../../Api/Product_Service";
 
 export default function Product_Detail_Components() {
-  const { productName } = useParams();
-  console.log(productName);
-  // const [colorCode, setMaMau] = useState("");
-  const [, setTenMau] = useState("");
-  useEffect(() => {
-    Color_Service.getById(colorCode).then((res) => {
-      let color = res.data;
-      setTenMau(color.colorName);
+  const { productCode } = useParams();
+  const [productName, setProductName] = useState("");
+  const [mainImage, setMainImage] = useState("");
+  const [description, setDescription] = useState("");
+  const [createDate, setCreateDate] = useState("");
+  const [updateDate, setUpdateDate] = useState("");
+  const [status, setStatus] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
+  
 
-    })
-  }, [colorCode])
-  const changeTenMau = (e) => {
-    setTenMau(e.target.value);
+  useEffect(() => {
+    Product_Service.getById(productCode).then((res) => {
+
+      let pr = res.data;
+      const NgayTao = new Date(pr.createDate);
+      const formattedDate = NgayTao.toISOString().split("T")[0];
+
+      const NgaySua = new Date(pr.updateDate);
+      const formattedNgaySua = NgaySua.toISOString().split("T")[0];
+      setProductName(pr.productName);
+      setMainImage(pr.mainImage);
+      setDescription(pr.description);
+      setStatus(pr.status);
+      setQuantity(pr.quantity);
+      setPrice(pr.price);
+      setCreateDate(formattedDate);
+      setUpdateDate(formattedNgaySua);
+    });
+  }, [productCode])
+
+  const changeProductName = (e) => {
+    setProductName(e.target.value);
+  };
+  const changeNgayTao = (e) => {
+    setCreateDate(e.target.value);
+  }
+  const changeNgaySua = (e) => {
+    setUpdateDate(e.target.value);
+  }
+  const changeMainImage = (e) => {
+    setMainImage(e.target.value);
+  }
+  const changeDescription = (e) => {
+    setDescription(e.target.value);
+  }
+  const changeProductCode = (e) => {
+    setProductCode(e.target.value);
+  }
+  const changeStatus = (e) => {
+    setStatus(e.target.value);
+  }
+  const changeQuantity = (e) => {
+    setQuantity(e.target.value);
+  }
+  const changePrice = (e) => {
+    setPrice(e.target.value);
   }
   const update = (e) => {
     e.preventDefault();
-    let color = {
-      // colorCode,
-      colorName
+    let pr = {
+      productName,
+      mainImage,
+      description,
+      createDate,
+      updateDate,
+      status,
+      productCode,
+      quantity,
+      price,
     };
-    Color_Service.update(colorCode,color).then((res) => {
+
+  
+    Product_Service.update(productCode,pr).then((res) => {
       if (res.status === 200) {
-        alert("Update màu sắc thành công!");
-        window.location = `/color`;
+        alert("Update sản phẩm thành công!");
+        window.location = `/product`;
       }
     });
   }
@@ -40,26 +93,119 @@ export default function Product_Detail_Components() {
         <main>
           <div>
             <div className="container">
-              <h3 className="text-center">Detail Color</h3>
+              <h3 className="text-center">Detail Sản Phẩm</h3>
               <br />
               <form className="col-md-12" id="myForm">
                 <div className="row">
-                  <div className="col-md-5">
+
+                <div className="col-md-5">
                     <div className="row">
-                      <label className="form-label">
-                        Mã màu
-                      </label>
-                      <input className="form-control" type="text"  value={colorCode}/>
+                      <label className="form-label">Tên Sản phẩm</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={productName}
+                        onChange={changeProductName}
+                      />
                     </div>
                   </div>
+
                   <div className="col-md-5">
                     <div className="row">
-                      <label className="form-label">
-                        Tên màu
-                      </label>
-                      <input className="form-control" type="text" value={colorName} onChange={changeTenMau}/>
+                      <label className="form-label">Ảnh Sản Phẩm</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={mainImage}
+                        onChange={changeMainImage}
+                      />
                     </div>
                   </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">Mô tả</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={description}
+                        onChange={changeDescription}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">Ngày Tạo</label>
+                      <input
+                        className="form-control"
+                        type="date"
+                        value={createDate} 
+                        onChange={changeNgayTao}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">Ngày Sửa</label>
+                      <input
+                        className="form-control"
+                        type="date" 
+                        value={updateDate} 
+                        onChange={changeNgaySua}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">Trạng Thái</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={status}
+                        onChange={changeStatus}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">Mã sản phẩm</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={productCode}
+                        onChange={changeProductCode}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">Số lượng</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={quantity}
+                        onChange={changeQuantity}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">Giá</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={price}
+                        onChange={changePrice}
+                      />
+                    </div>
+                  </div>
+
                 </div>
                 <div className="row">
                   <div className="col-md-12">
@@ -70,7 +216,7 @@ export default function Product_Detail_Components() {
                       </div>
                       <div className="col-md-2">
                         <br />
-                        <div className="col-md-2 padd2"><Link className="btn btn-danger" to="/color">Back</Link></div>
+                        <div className="col-md-2 padd2"><Link className="btn btn-danger" to="/product">Back</Link></div>
                       </div>
                     </div>
                   </div>

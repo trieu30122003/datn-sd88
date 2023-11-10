@@ -5,8 +5,7 @@ import Customer_Service from "../../../Api/Customer_Service";
 
 export default function Customer_Detail_Components() {
   const { customerCode } = useParams();
-  // console.log(brandCode);
-  // const [colorCode, setMaMau] = useState("");
+ 
   const [firstName, setName] = useState("");
   const [lastName, setHo] = useState("");
   const [email, setEmail] = useState("");
@@ -15,8 +14,7 @@ export default function Customer_Detail_Components() {
   const [phoneNumber, setPhone] = useState("");
   const [createDate, setCreate] = useState("");
   const [updateDate, setUpdate] = useState("");
-  // const [encryptedPassword, setEncryptedPassword] = useState("");
-  // const [status, setStatus] = useState(0);
+ 
 
 
   useEffect(() => {
@@ -24,6 +22,7 @@ export default function Customer_Detail_Components() {
       let kh = res.data;
       const NgayTao = new Date(kh.createDate);
       const formattedDate = NgayTao.toISOString().split("T")[0];
+
       const NgaySua = new Date(kh.updateDate);
       const formattedNgaySua = NgaySua.toISOString().split("T")[0];
       setHo(kh.firstName);
@@ -50,7 +49,6 @@ export default function Customer_Detail_Components() {
   const update = (e) => {
     e.preventDefault();
     let kh = {
-      // colorCode,
       firstName,
       lastName,
       email,

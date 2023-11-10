@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
 import Employee_Service from "../../../Api/Employee_Service";
-
+import { Radio } from "antd";
 function Employee_Add_Components() {
-
-  
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
@@ -18,7 +16,20 @@ function Employee_Add_Components() {
   const [image, setImage] = useState("");
   const [employeeCode, setEmployeeCode] = useState("");
   const [status, setStatus] = useState(0);
- console.log(firstName, lastName, gender, dateOfBirth, email, phoneNumber, encryptedPassword, createDate, updateDate, image, employeeCode, status);
+  console.log(
+    firstName,
+    lastName,
+    gender,
+    dateOfBirth,
+    email,
+    phoneNumber,
+    encryptedPassword,
+    createDate,
+    updateDate,
+    image,
+    employeeCode,
+    status
+  );
   const changeFirstName = (e) => {
     setFirstName(e.target.value);
   };
@@ -56,7 +67,6 @@ function Employee_Add_Components() {
     setStatus(e.target.value);
   };
 
-  
   const save = (e) => {
     e.preventDefault();
     let employee = {
@@ -118,28 +128,10 @@ function Employee_Add_Components() {
                   <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">Giới tính</label>
-                      <div>
-                        <input
-                          type="radio"
-                          id="male"
-                          name="gender"
-                          value="1"
-                          checked={gender === "1"}
-                          onChange={changeGender}
-                        />
-                        <label htmlFor="male">Nam</label>
-                      </div>
-                      <div>
-                        <input
-                          type="radio"
-                          id="female"
-                          name="gender"
-                          value="0"
-                          checked={gender === "0"}
-                          onChange={changeGender}
-                        />
-                        <label htmlFor="female">Nữ</label>
-                      </div>
+                      <Radio.Group>
+                        <Radio value={1}>Nam</Radio>
+                        <Radio value={2}>Nữ</Radio>
+                      </Radio.Group>
                     </div>
                   </div>
 
@@ -229,7 +221,7 @@ function Employee_Add_Components() {
                     )}
                   </div>
 
-                  {/* <div className="col-md-5">
+                  <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">Mã nhân viên </label>
                       <input
@@ -238,22 +230,19 @@ function Employee_Add_Components() {
                         onChange={changeEmployeeCode}
                       />
                     </div>
-                  </div> */}
+                  </div>
 
-                  {/* <div className="col-md-5">
+                  <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">Trạng Thái </label>
-                      <select
+                      <input
+                        type="text"
                         className="form-control"
-                        value={status} 
-                        onChange={changeStatus}
-                      >
-                        <option value="">Chọn trạng thái</option>{" "}
-                        <option value="nghiViec">Làm việc </option>
-                        <option value="lamViec">Nghỉ việc</option>
-                      </select>
+                        value={status}
+                        onChange={changeStatus} 
+                      />
                     </div>
-                  </div> */}
+                  </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12">

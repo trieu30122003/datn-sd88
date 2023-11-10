@@ -121,6 +121,7 @@ export default function Customer_List_Components() {
   useEffect(() => {
     fetchData();
   }, [])
+  
   const fetchData = async () => {
     try {
       const response = await Customer_Service.getAllCustomer();

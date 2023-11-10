@@ -2,7 +2,11 @@ import "../../../css/admin.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShirt, faMapLocationDot,faPalette } from '@fortawesome/free-solid-svg-icons'
+import {
+  faShirt,
+  faMapLocationDot,
+  faPalette,
+} from "@fortawesome/free-solid-svg-icons";
 export default function Sidebar() {
   const [value, setValue] = useState("");
   const select = (e) => {
@@ -16,62 +20,63 @@ export default function Sidebar() {
           <span className="text">YoungBoy</span>
         </Link>
         <ul className="side-menu top">
-          <li className={value === "customer" ? "active" : ""}>
-            <Link to="/admin/customer" onClick={() => setValue("customer")}>
-            <FontAwesomeIcon icon={faShirt} />
+          <li className={value === "employee" ? "active" : ""}>
+            <Link to="/employee" onClick={() => setValue("employee")}>
+              <i class="bi bi-person-lines-fill"></i>
+              <span className="text">Nhân Viên</span>
+            </Link>
+          </li>
+          <li className={value === "product" ? "active" : ""}>
+            <Link to="/product" onClick={() => setValue("product")}>
+              <FontAwesomeIcon icon={faShirt} />
               <span className="text">Sản phẩm</span>
             </Link>
           </li>
           <li className={value === "bill" ? "active" : ""}>
             <Link to="/bill" onClick={() => setValue("bill")}>
-            <i class="bi bi-receipt"></i>
+              <i class="bi bi-receipt"></i>
               <span className="text">Bill</span>
             </Link>
           </li>
           <li className={value === "bill" ? "active" : ""}>
             <Link to="/api/bill/new" onClick={() => setValue("bill")}>
-            <FontAwesomeIcon icon={faMapLocationDot} />
+              <FontAwesomeIcon icon={faMapLocationDot} />
               <span className="text">Địa chỉ</span>
             </Link>
           </li>
-          <li className={value === "bill" ? "active" : ""}>
-            <Link to="/brand" onClick={() => setValue("bill")}>
+          <li className={value === "brand" ? "active" : ""}>
+            <Link to="/brand" onClick={() => setValue("brand")}>
               <i class="bi bi-person-lines-fill"></i>
               <span className="text">Hãng</span>
             </Link>
           </li>
-          <li className={value === "bill" ? "active" : ""}>
-            <Link to="/color" onClick={() => setValue("bill")}>
-            <FontAwesomeIcon icon={faPalette} />
+          <li className={value === "color" ? "active" : ""}>
+            <Link to="/color" onClick={() => setValue("color")}>
+              <FontAwesomeIcon icon={faPalette} />
               <span className="text">Màu sắc</span>
             </Link>
           </li>
-          <li className={value === "bill" ? "active" : ""}>
-            <Link to="/api/bill/new" onClick={() => setValue("bill")}>
+          <li className={value === "collar" ? "active" : ""}>
+            <Link to="/collar" onClick={() => setValue("collar")}>
               <i class="bi bi-person-lines-fill"></i>
               <span className="text">Cúc áo</span>
             </Link>
           </li>
-          <li className={value === "bill" ? "active" : ""}>
-            <Link to="/api/bill/new" onClick={() => setValue("bill")}>
+          <li className={value === "category" ? "active" : ""}>
+            <Link to="/category" onClick={() => setValue("category")}>
               <i class="bi bi-person-lines-fill"></i>
               <span className="text">Loại</span>
             </Link>
           </li>
-          <li className={value === "bill" ? "active" : ""}>
-            <Link to="/customer" onClick={() => setValue("bill")}>
+          <li className={value === "customer" ? "active" : ""}>
+            <Link to="/customer" onClick={() => setValue("customer")}>
               <i class="bi bi-person-lines-fill"></i>
               <span className="text">Khách hàng</span>
             </Link>
           </li>
-          <li className={value === "bill" ? "active" : ""}>
-            <Link to="/api/bill/new" onClick={() => setValue("bill")}>
-              <i class="bi bi-person-lines-fill"></i>
-              <span className="text">Thiết kế</span>
-            </Link>
-          </li>
-          <li className={value === "bill" ? "active" : ""}>
-            <Link to="/api/bill/new" onClick={() => setValue("bill")}>
+        
+          <li className={value === "size" ? "active" : ""}>
+            <Link to="/size" onClick={() => setValue("bill")}>
               <i class="bi bi-person-lines-fill"></i>
               <span className="text">Size</span>
             </Link>

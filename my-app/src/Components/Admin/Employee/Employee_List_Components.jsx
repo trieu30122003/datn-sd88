@@ -1,17 +1,138 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
+import { Button, Input, Pagination, Space, Table } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+
+import Highlighter from "react-highlight-words";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPen, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Employee_Service from "../../../Api/Employee_Service";
-import { Button, Pagination, Space, Table } from "antd";
 
 export default function Employee_List_Components() {
   const [pageData, setPageData] = useState([]);
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 2,
-    total: 0,
-  });
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef(null);
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
 
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
+
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+      close,
+    }) => (
+      <div
+        style={{
+          padding: 8,
+        }}
+        onKeyDown={(e) => e.stopPropagation()}
+      >
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{
+            marginBottom: 8,
+            display: "block",
+          }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{
+              width: 50,
+            }}
+          >
+            {/* Search */}
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Reset
+          </Button>
+          {/* <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              confirm({
+                closeDropdown: false,
+              });
+              setSearchText(selectedKeys[0]);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            Filter
+          </Button> */}
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              close();
+            }}
+          >
+            close
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined
+        style={{
+          color: filtered ? "#1677ff" : undefined,
+        }}
+      />
+    ),
+    onFilter: (value, record) =>
+      (record[dataIndex] &&
+        record[dataIndex]
+          .toString()
+          .toLowerCase()
+          .includes(value.toLowerCase())) ||
+      false,
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{
+            backgroundColor: "#ffc069",
+            padding: 0,
+          }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+  
   useEffect(() => {
     fetchData();
   }, []);
@@ -22,20 +143,11 @@ export default function Employee_List_Components() {
       const response = await Employee_Service.getAllEmployee();
       const data = response.data;
       setPageData(data);
-      setPagination({
-        ...pagination,
-        total: response.total,
-      });
     } catch (error) {
       console.log(error);
     }
   };
-  const handlePageChange = (page) => {
-    setPagination({
-      ...pagination,
-      current: page,
-    });
-  };
+ 
   const Delete = (e) => {
     console.log(e);
     Employee_Service.delete(e).then((res) => {
@@ -54,38 +166,47 @@ export default function Employee_List_Components() {
       }
     });
   };
+  const searchName = (e) => {
+    Color_Service.search(e).then((res) => {
+      
+    })
+  }
   console.log("data", pageData);
 
   const columns = [
     {
-      title: "Họ tên",
-      dataIndex: "firstName",
+      title: "Name",
       key: "firstName",
-    },
-    {
-      title: "Tên Đệm",
-      dataIndex: "lastName",
-      key: "lastName",
+      ...getColumnSearchProps('name'),
+      render: (record) => `${record.firstName} ${record.lastName}`,
     },
 
     {
-      title: "Giới Tính",
-      dataIndex: "gender",
-      key: "gender",
+      title: 'Gender',
+      dataIndex: 'gender',
+      key: 'gender',
+      render: (text) => {
+        return text === 0 ? 'Nữ' : 'Nam';
+      },
+      filters: [
+        {
+          text: 'Nam',
+          value: 'Nam',
+        },
+        {
+          text: 'Nữ',
+          value: 'Nữ',
+        }
+      ],
+      onFilter: (value, record) => record.gender,
+      filterSearch: false,
+      width: '20%',
     },
 
     {
       title: "Ngày tháng năm sinh",
       dataIndex: "dateOfBirth",
       key: "dateOfBirth",
-      render: (text) => {
-        const date = new Date(text);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        const formattedDate = `${year}-${month}-${day}`;
-        return formattedDate;
-      },
     },
 
     {
@@ -98,38 +219,14 @@ export default function Employee_List_Components() {
       title: "Số điện thoại",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
+      ...getColumnSearchProps('phoneNumber'),
     },
     {
       title: "Mã hóa mật khẩu",
       dataIndex: "encryptedPassword",
       key: "encryptedPassword",
     },
-    {
-      title: "Ngày Tạo",
-      dataIndex: "createDate",
-      key: "createDate",
-      render: (text) => {
-        const date = new Date(text);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        const formattedDate = `${year}-${month}-${day}`;
-        return formattedDate;
-      },
-    },
-    {
-      title: "Ngày Sửa",
-      dataIndex: "updateDate",
-      key: "updateDate",
-      render: (text) => {
-        const date = new Date(text);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        const formattedDate = `${year}-${month}-${day}`;
-        return formattedDate;
-      },
-    },
+   
     {
       title: "Ảnh",
       dataIndex: "image",
@@ -139,14 +236,12 @@ export default function Employee_List_Components() {
       title: "Mã Nhân Viên",
       dataIndex: "employeeCode",
       key: "employeeCode",
+      ...getColumnSearchProps('employeeCode'),
     },
     {
       title: "Trạng Thái",
       dataIndex: "status",
       key: "status",
-      render: (text) => {
-        return text === 0 ? "Làm việc" : "Nghỉ việc";
-      },
     },
     {
       title: "Action",
@@ -155,12 +250,8 @@ export default function Employee_List_Components() {
       render: (_, record) => (
         <Space size="middle">
           {/* <a>Invite {record.name}</a> */}
-          <Button type="primary" onClick={() => Delete(record.employeeCode)}>
-            Xóa
-          </Button>
-          <Button type="primary" onClick={() => Edit(record.employeeCode)}>
-            Edit
-          </Button>
+          <Button danger type="primary" onClick={() => Delete(record.employeeCode)}><FontAwesomeIcon icon={faTrash} /></Button>
+          <Button type="primary" onClick={() => Edit(record.employeeCode)}><FontAwesomeIcon icon={faPen} /></Button>
         </Space>
       ),
     },
@@ -177,36 +268,25 @@ export default function Employee_List_Components() {
               <div className="head">
                 {/* <i className="bx bx-filter" /> */}
                 <div>
-                  <Link className="btn btn-primary" to="/employee/add">
-                    ADD
-                  </Link>
+                  <Link className="btn btn-primary" to='/employee/add'><FontAwesomeIcon icon={faPlus} /></Link>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    position: "relative",
-                    left: "500px",
-                  }}
-                >
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="searchNgayTao"
-                  />
-                  <Link to={`/api/bill/search?ngayTao=`}>
+                {/* <div style={{ display: "flex", position: "relative", left: "500px" }}>
+                  <input className="form-control" type="text" name="colorName" />
+                  <Link to={`/color/search?colorName=`}>
                     <i class="btn border bi bi-search"></i>
                   </Link>
-                </div>
+
+                </div> */}
               </div>
               <br />
-              <Table columns={columns} dataSource={pageData} />
+              <Table columns={columns} dataSource={pageData} pagination={{ pageSize: 5 }}/>
               {/* <Pagination
-                  defaultCurrent={0}
-                /> */}
+                defaultCurrent={0}
+              /> */}
             </div>
           </div>
         </main>
       </div>
     </>
-  );
+  )
 }

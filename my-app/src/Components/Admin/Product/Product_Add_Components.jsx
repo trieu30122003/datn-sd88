@@ -9,6 +9,10 @@ function Product_Add_Components() {
   const [description, setDescription] = useState("");
   const [createDate, setCreateDate] = useState(null);
   const [updateDate, setUpdateDate] = useState(null);
+  const [status, setStatus] = useState("");
+  const [productCode, setProductCode] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
   const changeProductName = (e) => {
     setProductName(e.target.value);
   };
@@ -24,6 +28,19 @@ function Product_Add_Components() {
   const changeUpdateDate = (e) => {
     setUpdateDate(e.target.value)
   };
+  const changeStatus = (e) => {
+    setStatus(e.target.value)
+  };
+  const changeProductCode = (e) => {
+    setProductCode(e.target.value)
+  };
+  const changeQuantity = (e) => {
+    setQuantity(e.target.value)
+  };
+  const changePrice = (e) => {
+    setPrice(e.target.value)
+  };
+
 
   const save = (e) => {
     e.preventDefault();
@@ -33,6 +50,10 @@ function Product_Add_Components() {
       description,
       createDate,
       updateDate,
+      status,
+      productCode,
+      quantity,
+      price,
     };
     Product_Service.save(product).then((res) => {
       if (res.status === 200) {
@@ -54,6 +75,7 @@ function Product_Add_Components() {
               <br />
               <form className="col-md-12" id="myForm">
                 <div className="row">
+
                   <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">Sản phẩm</label>
@@ -64,6 +86,7 @@ function Product_Add_Components() {
                       />
                     </div>
                   </div>
+
                   <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">Ảnh</label>
@@ -109,6 +132,50 @@ function Product_Add_Components() {
                       />
                     </div>
                   </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">Trạng Thái</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        onChange={changeStatus}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">Mã sản phẩm</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        onChange={changeProductCode}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">Số lượng</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        onChange={changeQuantity}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">Giá</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        onChange={changePrice}
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12">
@@ -126,7 +193,7 @@ function Product_Add_Components() {
                       <div className="col-md-2">
                         <br />
                         <div className="col-md-2 padd2">
-                          <Link className="btn btn-danger" to="/color">
+                          <Link className="btn btn-danger" to="/product">
                             Back
                           </Link>
                         </div>
