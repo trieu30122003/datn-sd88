@@ -1,9 +1,8 @@
 import { instance } from "./instance";
-const API = "employee"
+const API = "/employee"
 class Employee_Service {
   getAllEmployee() {
     return instance.get(`${API}`);
-    // ?page=${9}
   }
   getById(id) {
     return instance.get(`${API}/${id}`);

@@ -20,6 +20,21 @@ export const APP_ROUTERS = {
       LABEL: "QUAN LI HOA DON",
       VALUE: "/bill/:billCode",
     },
+    CONFIRM: {
+      LABEL: 'QUAN LI HOA DON',
+      VALUE: '/confirm/:id'
+    }
+  },
+  HOME: {
+    DETAIL: {
+      LABEL: 'TRANG CHU',
+    VALUE: '/product-detail-page/:id'
+    },
+    
+    ALL: {
+      LABEL: 'TRANG CHU',
+      VALUE: '/all-product'
+    }
   },
 
   COLOR: {

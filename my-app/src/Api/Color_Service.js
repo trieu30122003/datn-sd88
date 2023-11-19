@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { instance } from "./instance";
-const API = "color"
+const API = "/color"
 class Color_Service {
   getAllColor() {
     return instance.get(API);

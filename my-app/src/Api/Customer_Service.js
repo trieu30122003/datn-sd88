@@ -1,5 +1,5 @@
 import { instance } from "./instance";
-const API = "customer";
+const API = "/customer";
 class Customer_Service{
   getAllCustomer() {
     return instance.get(`${API}`);

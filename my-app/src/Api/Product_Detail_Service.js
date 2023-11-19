@@ -1,8 +1,8 @@
 import { instance } from "./instance";
-const API = "/product"
-class Product_Service {
-  getAllColor() {
-    return instance.get(`${API}?page=${9}`);
+const API = "/product-detail"
+class Product_Detail_Service {
+  getAllProductDetail() {
+    return instance.get(`${API}`);
   }
   getById(id) {
     return instance.get(`${API}/${id}`);
@@ -16,8 +16,5 @@ class Product_Service {
   delete(id){
       return instance.delete(`${API}/${id}`);
   }
-  search(name){
-    return instance.get(`${API}/search?productName=${name}`);
 }
-}
-export default new Product_Service();
+export default new Product_Detail_Service();
