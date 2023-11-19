@@ -1,6 +1,6 @@
 import { instance } from "./instance";
-const API = "/bill"
-class Bill_Service{
+const API = "/bill-detail"
+class Bill_Detail_Service{
     getAllBill(){
         return instance.get(API);
     }
@@ -17,4 +17,5 @@ class Bill_Service{
         return instance.put(`${API}/${id}`);
     }
 }
-export default new Bill_Service();
+export default new Bill_Detail_Service();
+

@@ -33,6 +33,9 @@ import Product_Add_Components from "./Components/Admin/Product/Product_Add_Compo
 import Employee_List_Components from "./Components/Admin/Employee/Employee_List_Components";
 import Employee_Add_Components from "./Components/Admin/Employee/Employee_Add_Components";
 import Employee_Detail_Components from "./Components/Admin/Employee/Employee_Detail_Components"; 
+import Product_detail_page from "./Components/Home/Product_detail._page";
+import Order_Confirmation from "./Components/Admin/Bill/Order_Confirmation";
+import All_Product from "./Components/Home/All_Product";
 function App() {
   return (
     <div className="App">
@@ -41,6 +44,8 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/" excact element={<Home_Page />}></Route>
         <Route path="/home" element={<Home_Page />}></Route>
+        <Route path={APP_ROUTERS.HOME.DETAIL.VALUE} element={<Product_detail_page />}></Route>
+        <Route path={APP_ROUTERS.HOME.ALL.VALUE} element={<All_Product />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/service" element={<Service />}></Route>
         <Route path="/booking" element={<Booking />}></Route>
@@ -49,6 +54,7 @@ function App() {
         <Route path={APP_ROUTERS.BILL.INDEX.VALUE} element={<Bill_List_Conponents />}></Route>
         <Route path={APP_ROUTERS.BILL.DETAIL.VALUE} element={<Bill_Detail_Components />}></Route>
         <Route path={APP_ROUTERS.BILL.VIEW_ADD.VALUE} element={<Bill_Add_Components />}></Route>
+        <Route path={APP_ROUTERS.BILL.CONFIRM.VALUE} element={<Order_Confirmation />}></Route>
 
         <Route path={APP_ROUTERS.COLOR.INDEX.VALUE} element={<Color_List_Components />}></Route>
         <Route path={APP_ROUTERS.COLOR.VIEW_ADD.VALUE} element={<Color_Add_Components />}></Route>

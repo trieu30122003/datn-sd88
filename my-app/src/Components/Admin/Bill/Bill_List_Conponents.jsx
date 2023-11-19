@@ -4,7 +4,7 @@ import Sidebar from "../Layout/Sidebar";
 import Bill_Service from "../../../Api/Bill_Service";
 import { Button, Space, Table } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash,faPen,faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPen, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 export default function Bill_List_Conponents() {
   const [pageData, setPageData] = useState([]);
@@ -19,32 +19,78 @@ export default function Bill_List_Conponents() {
       setPageData(data);
     } catch (error) { console.log(error); }
   };
-  const Delete = (e) => {
-    // console.log(e);
-    Bill_Service.delete(e).then((res) => {
+  console.log(pageData);
+  const add = () => {
+    Bill_Service.getAllBill().then((res) => {
       if (res.status === 200) {
-        alert("Xóa hóa đơn thành công!");
-        window.location = "/bill";
+        const lastBill = res.data[res.data.length - 1];
+        const lastId = lastBill ? lastBill.id : 0;
+        console.log(lastId);
+        const newId = lastId + 1;
+        const billCode = `HD00${newId.toString().padStart(3, '0')}`;
+
+        const billData = {
+          billCode: billCode,
+          // other properties
+        };
+
+        Bill_Service.save(billData).then((res) => {
+          if (res.status === 200) {
+            window.location.href = `/bill`;
+            // /add?billCode=${newId}
+          }
+        });
+      }
+    });
+  }
+  const Edit = (e) => {
+    Bill_Service.getById(e).then((res) => {
+      if (res.status === 200) {
+        // alert("Xóa hóa đơn thành công!");
+        window.location = `/bill/${res.data.id}`;
       }
     });
   };
+  // const Delete = (e) => {
+  //   // console.log(e);
+  //   Bill_Service.delete(e).then((res) => {
+  //     if (res.status === 200) {
+  //       alert("Xóa hóa đơn thành công!");
+  //       window.location = "/bill";
+  //     }
+  //   });
+  // };
+
   const columns = [
     {
       title: 'Khách hàng',
       key: 'name',
       // ...getColumnSearchProps('name'),
-      render: (record) => `${record.customer.firstName} ${record.customer.lastName}`,
+      render: (record) => {
+        if (record.customer) {
+          return `${record.customer.firstName} ${record.customer.lastName}`;
+        } else {
+          return null;
+        }
+      },
     },
     {
       title: 'Nhân viên',
       key: 'nameEmployee',
       // ...getColumnSearchProps('name'),
-      render: (record) => `${record.employee.firstName} ${record.employee.lastName}`,
+      render: (record) => {
+        if (record.employee) {
+          return `${record.employee.firstName} ${record.employee.lastName}`;
+        } else {
+          return null;
+        }
+      },
     },
     {
       title: 'Tổng tiền',
       dataIndex: 'totalAmount',
       key: 'totalAmount',
+      sorter: (a, b) => a.totalAmount - b.totalAmount,
     },
     {
       title: 'Ngày thanh toán',
@@ -66,16 +112,27 @@ export default function Bill_List_Conponents() {
       render: (text) => {
         return text === 0 ? 'Đã thanh toán' : 'Chưa thanh toán';
       },
+      filters: [
+        {
+          text: 'Đã thanh toán',
+          value: 0,
+        },
+        {
+          text: 'Chưa thanh toán',
+          value: 1,
+        },
+      ],
+      onFilter: (value, record) => record.address.indexOf(value) === 0,
     },
     {
       title: 'Action',
-      dataIndex: 'brandCode',
+      dataIndex: 'id',
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
           {/* <a>Invite {record.name}</a> */}
           {/* <Button danger type="primary" onClick={() => Delete(record.billCode)}><FontAwesomeIcon icon={faTrash} /></Button> */}
-          <Button type="primary" onClick={() => Edit(record.billCode)}><FontAwesomeIcon icon={faPen} /></Button>
+          <Button type="primary" onClick={() => Edit(record.id)}><FontAwesomeIcon icon={faPen} /></Button>
         </Space>
       ),
     },
@@ -92,9 +149,9 @@ export default function Bill_List_Conponents() {
               <div className="head">
                 {/* <i className="bx bx-filter" /> */}
                 <div>
-                  <Link to="/bill/add" className="btn btn-primary">
-                    Add
-                  </Link>
+                  <Button onClick={add} className="btn btn-primary">
+                    <FontAwesomeIcon icon={faPlus} />
+                  </Button>
                 </div>
                 <div style={{ display: "flex", position: "relative", left: "500px" }}>
                   <input className="form-control" type="date" name="searchNgayTao" />
@@ -105,7 +162,7 @@ export default function Bill_List_Conponents() {
                 </div>
               </div>
               <br />
-              <Table columns={columns} dataSource={pageData} />
+              <Table columns={columns} dataSource={pageData.listBill} />
             </div>
           </div>
         </main>

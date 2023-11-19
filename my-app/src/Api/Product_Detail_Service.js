@@ -1,7 +1,7 @@
 import { instance } from "./instance";
-const API = "/product"
-class Product_Service {
-  getAllColor() {
+const API = "/product-detail"
+class Product_Detail_Service {
+  getAllProductDetail() {
     return instance.get(`${API}`);
   }
   getById(id) {
@@ -17,4 +17,4 @@ class Product_Service {
       return instance.delete(`${API}/${id}`);
   }
 }
-export default new Product_Service();
+export default new Product_Detail_Service();
