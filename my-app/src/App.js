@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import "../src/style/js/swiper.scss.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import Home_Page from "./Components/Home/Home_Page";
+import Home_Page from "./Components/Home/Home_Page.jsx";
 import Service from "./Components/Home/Service";
 import About from "./Components/Home/About";
 import Booking from "./Components/Home/Booking";
