@@ -1,6 +1,16 @@
 import React from "react";
+import { useEffect, useState } from "react";
 
 export default function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+
+
+  const login = () => {
+    debugger
+  }
+
   return (
     <>
       <form method="post" action="/login/">
@@ -20,31 +30,24 @@ export default function Login() {
                       </p>
                       <div className="form-outline form-white mb-4">
                         <label className="form-label">User Name</label>
-                        <input
+                        {/* <input
                           type="text"
                           name="ma"
                           className="form-control form-control-lg"
-                        />
+                        /> */}
+                        <input className="form-control" type="text" name="username" value={this.state.username} />
                       </div>
                       <div className="form-outline form-white mb-4">
                         <label className="form-label">Password</label>
-                        <input
-                          type="password"
-                          name="mat_khau"
-                          className="form-control form-control-lg"
-                        />
+                        <input className="form-control" type="text" name="password" value={this.state.password} />
                       </div>
                       <p className="small mb-5 pb-lg-2">
-                        <a className="text-white-50" href="#!">
-                          Forgot password?
-                        </a>
+                        <a className="text-white-50" href="#!">Forgot password ?</a>
                       </p>
-                      <button
-                        className="btn btn-outline-light btn-lg px-5"
-                        type="submit"
-                      >
+                      {/* <button className="btn btn-outline-light btn-lg px-5" type="submit">
                         Login
-                      </button>
+                      </button> */}
+                      <button type="submit" className="btn btn-success" onClick={login}>Login</button>
                       <div className="d-flex justify-content-center text-center mt-4 pt-1">
                         <a href="#!" className="text-white">
                           <i className="fab fa-facebook-f fa-lg" />
@@ -66,6 +69,23 @@ export default function Login() {
                       </p>
                     </div>
                   </div>
+
+                  <form>
+                    <div className="input-container">
+                      <label>Username </label>
+                      <input type="text" name="uname" required />
+                      {/* {renderErrorMessage("uname")} */}
+                    </div>
+                    <div className="input-container">
+                      <label>Password </label>
+                      <input type="password" name="pass" required />
+                      {/* {renderErrorMessage("pass")} */}
+                    </div>
+                    <div className="button-container">
+                      <input type="submit" />
+                    </div>
+                  </form>
+
                 </div>
               </div>
             </div>

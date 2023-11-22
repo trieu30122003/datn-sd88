@@ -29,18 +29,20 @@ import Customer_Detail_Components from "./Components/Admin/Customer/Customer_Det
 
 import Product_List_Components from "./Components/Admin/Product/Product_List_Components";
 import Product_Add_Components from "./Components/Admin/Product/Product_Add_Components";
+import Product_Detail_Components from "./Components/Admin/Product/Product_Detail_Components.jsx";
 
 import Employee_List_Components from "./Components/Admin/Employee/Employee_List_Components";
 import Employee_Add_Components from "./Components/Admin/Employee/Employee_Add_Components";
-import Employee_Detail_Components from "./Components/Admin/Employee/Employee_Detail_Components"; 
+import Employee_Detail_Components from "./Components/Admin/Employee/Employee_Detail_Components";
 import Product_detail_page from "./Components/Home/Product_detail._page";
 import Order_Confirmation from "./Components/Admin/Bill/Order_Confirmation";
 import All_Product from "./Components/Home/All_Product";
+import LoginForm from "./Components/Account/Login.jsx";
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<LoginForm />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/" excact element={<Home_Page />}></Route>
         <Route path="/home" element={<Home_Page />}></Route>
@@ -61,14 +63,16 @@ function App() {
         <Route path={APP_ROUTERS.COLOR.DETAIL.VALUE} element={<Color_Detail_Components />}></Route>
 
         <Route path={APP_ROUTERS.BRAND.INDEX.VALUE} element={<Brand_List_Components />}></Route>
-        <Route path={APP_ROUTERS.BRAND.VIEW_ADD.VALUE} element={<Brand_Add_Components/>}></Route>
-        <Route path={APP_ROUTERS.BRAND.DETAIL.VALUE} element={<Brand_Detail_Components/>}></Route>
+        <Route path={APP_ROUTERS.BRAND.VIEW_ADD.VALUE} element={<Brand_Add_Components />}></Route>
+        <Route path={APP_ROUTERS.BRAND.DETAIL.VALUE} element={<Brand_Detail_Components />}></Route>
 
         <Route path={APP_ROUTERS.Customer.INDEX.VALUE} element={<Customer_List_Components />}></Route>
         <Route path={APP_ROUTERS.Customer.VIEW_ADD.VALUE} element={<Customer_Add_Components />}></Route>
         <Route path={APP_ROUTERS.Customer.DETAIL.VALUE} element={<Customer_Detail_Components />}></Route>
-        
-        <Route path={APP_ROUTERS.PRODUCT.INDEX.VALUE} element={<Brand_List_Components />}></Route>
+
+        <Route path={APP_ROUTERS.PRODUCT.INDEX.VALUE} element={<Product_List_Components />}></Route>
+        <Route path={APP_ROUTERS.PRODUCT.VIEW_ADD.VALUE} element={<Product_Add_Components />}></Route>
+        <Route path={APP_ROUTERS.PRODUCT.DETAIL.VALUE} element={<Product_Detail_Components />}></Route>
 
         <Route path={APP_ROUTERS.EMPLOYEE.INDEX.VALUE} element={<Employee_List_Components />}></Route>
         <Route path={APP_ROUTERS.EMPLOYEE.VIEW_ADD.VALUE} element={<Employee_Add_Components />}></Route>

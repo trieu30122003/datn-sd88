@@ -11,9 +11,8 @@ export default function Product_Detail_Components() {
   const [createDate, setCreateDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
   const [status, setStatus] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState("");
-  
+
+
 
   useEffect(() => {
     Product_Service.getById(productCode).then((res) => {
@@ -21,15 +20,12 @@ export default function Product_Detail_Components() {
       let pr = res.data;
       const NgayTao = new Date(pr.createDate);
       const formattedDate = NgayTao.toISOString().split("T")[0];
-
       const NgaySua = new Date(pr.updateDate);
       const formattedNgaySua = NgaySua.toISOString().split("T")[0];
       setProductName(pr.productName);
       setMainImage(pr.mainImage);
       setDescription(pr.description);
       setStatus(pr.status);
-      setQuantity(pr.quantity);
-      setPrice(pr.price);
       setCreateDate(formattedDate);
       setUpdateDate(formattedNgaySua);
     });
@@ -51,17 +47,12 @@ export default function Product_Detail_Components() {
     setDescription(e.target.value);
   }
   const changeProductCode = (e) => {
-    setProductCode(e.target.value);
+    productCode(e.target.value);
   }
   const changeStatus = (e) => {
     setStatus(e.target.value);
   }
-  const changeQuantity = (e) => {
-    setQuantity(e.target.value);
-  }
-  const changePrice = (e) => {
-    setPrice(e.target.value);
-  }
+
   const update = (e) => {
     e.preventDefault();
     let pr = {
@@ -72,12 +63,10 @@ export default function Product_Detail_Components() {
       updateDate,
       status,
       productCode,
-      quantity,
-      price,
     };
 
-  
-    Product_Service.update(productCode,pr).then((res) => {
+
+    Product_Service.update(productCode, pr).then((res) => {
       if (res.status === 200) {
         alert("Update sản phẩm thành công!");
         window.location = `/product`;
@@ -98,7 +87,7 @@ export default function Product_Detail_Components() {
               <form className="col-md-12" id="myForm">
                 <div className="row">
 
-                <div className="col-md-5">
+                  <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">Tên Sản phẩm</label>
                       <input
@@ -140,7 +129,7 @@ export default function Product_Detail_Components() {
                       <input
                         className="form-control"
                         type="date"
-                        value={createDate} 
+                        value={createDate}
                         onChange={changeNgayTao}
                       />
                     </div>
@@ -151,8 +140,8 @@ export default function Product_Detail_Components() {
                       <label className="form-label">Ngày Sửa</label>
                       <input
                         className="form-control"
-                        type="date" 
-                        value={updateDate} 
+                        type="date"
+                        value={updateDate}
                         onChange={changeNgaySua}
                       />
                     </div>
@@ -181,31 +170,6 @@ export default function Product_Detail_Components() {
                       />
                     </div>
                   </div>
-
-                  <div className="col-md-5">
-                    <div className="row">
-                      <label className="form-label">Số lượng</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        value={quantity}
-                        onChange={changeQuantity}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="col-md-5">
-                    <div className="row">
-                      <label className="form-label">Giá</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        value={price}
-                        onChange={changePrice}
-                      />
-                    </div>
-                  </div>
-
                 </div>
                 <div className="row">
                   <div className="col-md-12">

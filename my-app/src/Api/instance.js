@@ -1,9 +1,20 @@
 import axios from 'axios';
-const PORT = "http://localhost:8080/";
+import { useNavigate } from 'react-router-dom';
+const PORT = "http://localhost:8080";
+
+// const navigate = useNavigate();
+
+const userInfoStr = localStorage.getItem("userInfo");
+const userInfo = userInfoStr ? JSON.parse(userInfoStr) : null;
+// if (userInfo == null) navigate('/login')
 
 export const instance = axios.create({
   baseURL: PORT,
-  timeout: 10000,
+  // timeout: 10000,
+  headers: {
+    'Authorization': `Bearer ${userInfo?.token}`,
+    'Content-Type': 'application/json'
+  }
 });
 
 axios.interceptors.request.use(

@@ -11,8 +11,7 @@ function Product_Add_Components() {
   const [updateDate, setUpdateDate] = useState(null);
   const [status, setStatus] = useState("");
   const [productCode, setProductCode] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState("");
+
   const changeProductName = (e) => {
     setProductName(e.target.value);
   };
@@ -34,12 +33,7 @@ function Product_Add_Components() {
   const changeProductCode = (e) => {
     setProductCode(e.target.value)
   };
-  const changeQuantity = (e) => {
-    setQuantity(e.target.value)
-  };
-  const changePrice = (e) => {
-    setPrice(e.target.value)
-  };
+
 
 
   const save = (e) => {
@@ -52,8 +46,7 @@ function Product_Add_Components() {
       updateDate,
       status,
       productCode,
-      quantity,
-      price,
+
     };
     Product_Service.save(product).then((res) => {
       if (res.status === 200) {
@@ -115,7 +108,7 @@ function Product_Add_Components() {
                       <input
                         className="form-control"
                         type="date"
-                        value={createDate} 
+                        value={createDate}
                         onChange={changeCreateDate}
                       />
                     </div>
@@ -126,8 +119,8 @@ function Product_Add_Components() {
                       <label className="form-label">Ngày Sửa</label>
                       <input
                         className="form-control"
-                        type="date" 
-                        value={updateDate} 
+                        type="date"
+                        value={updateDate}
                         onChange={changeUpdateDate}
                       />
                     </div>
@@ -155,27 +148,7 @@ function Product_Add_Components() {
                     </div>
                   </div>
 
-                  <div className="col-md-5">
-                    <div className="row">
-                      <label className="form-label">Số lượng</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        onChange={changeQuantity}
-                      />
-                    </div>
-                  </div>
 
-                  <div className="col-md-5">
-                    <div className="row">
-                      <label className="form-label">Giá</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        onChange={changePrice}
-                      />
-                    </div>
-                  </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12">

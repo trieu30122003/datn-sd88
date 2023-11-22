@@ -142,7 +142,7 @@ export default function Product_List_Components() {
   });
 
   useEffect(() => {
-    fetchData(1,10,'');
+    fetchData(1, 10, '');
   }, []);
 
   const fetchData = async (page, limit, filter) => {
@@ -166,10 +166,11 @@ export default function Product_List_Components() {
   };
   const Edit = (e) => {
     console.log(e);
+    debugger
     Product_Service.getById(e).then((res) => {
       if (res.status === 200) {
         // alert("Xóa hóa đơn thành công!");
-        window.location = `/product/${res.data.productCode}`;
+        window.location = `/product/${res.data.id}`;
       }
     });
   };
@@ -211,17 +212,9 @@ export default function Product_List_Components() {
       key: "productCode",
       ...getColumnSearchProps("productCode"),
     },
-    {
-      title: "Số lượng",
-      dataIndex: "quantity",
-      key: "quantity",
-    },
 
-    {
-      title: "Giá",
-      dataIndex: "price",
-      key: "price",
-    },
+
+
     {
       title: "Action",
       dataIndex: "productCode",
@@ -236,7 +229,7 @@ export default function Product_List_Components() {
           >
             <FontAwesomeIcon icon={faTrash} />
           </Button>
-          <Button type="primary" onClick={() => Edit(record.productCode)}>
+          <Button type="primary" onClick={() => Edit(record.id)}>
             <FontAwesomeIcon icon={faPen} />
           </Button>
         </Space>
@@ -271,11 +264,11 @@ export default function Product_List_Components() {
               <Table
                 columns={columns}
                 dataSource={pageData}
-                // pagination={{
-                //   defaultPageSize: 2,
-                //   showSizeChanger: true,
-                //   pageSizeOptions: ["1", "2", "5"],
-                // }}
+              // pagination={{
+              //   defaultPageSize: 2,
+              //   showSizeChanger: true,
+              //   pageSizeOptions: ["1", "2", "5"],
+              // }}
               />
               <Pagination
                 showSizeChanger={true}
