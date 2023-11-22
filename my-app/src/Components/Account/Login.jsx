@@ -1,48 +1,88 @@
 import React from 'react';
-import { Button, Form, Input, Select } from 'antd';
+import "../../index.css"
+import { Button, Checkbox, Form, Input, Select } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Authentication_Service from '../../Api/Authentication_Service';
-
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
 };
 
 const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
+  wrapperCol: { offset: 8, span: 16 },
 };
 
 export default function LoginForm() {
-    const [form] = Form.useForm();
-    const navigate = useNavigate();
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
 
 
-    const onFinish = (values: any) => {
-        Authentication_Service.login(values.username, values.password).then((res) => {
-            debugger
-            if (res.status === 200) {
-                localStorage.setItem("userInfo", JSON.stringify(res.data.data));
-                return navigate('/');
-            }
-        });
-    };
+  const onFinish = (values) => {
+    Authentication_Service.login(values.username, values.password).then((res) => {
+      debugger
+      if (res.status === 200) {
+        localStorage.setItem("userInfo", JSON.stringify(res.data.data));
+        return navigate('/');
+      }
+    });
+  };
 
-    return (
-        <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}
-            style={{ maxWidth: 600, margin: "auto", marginTop: "10%" }} >
-            <div>Đăng nhập hệ thống</div>
-            <Form.Item name="username" label="Username" rules={[{ required: true }]}>
-                <Input />
-            </Form.Item>
-            <Form.Item name="password" label="Password" rules={[{ required: true }]}>
-                <Input type='password' />
-            </Form.Item>
-            <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">
-                    Đăng nhập
-                </Button>
-            </Form.Item>
-        </Form>
-    );
-}
+  return (
+    <div style={{ background: "url('https://anlocgroup.com/wp-content/uploads/2023/05/thiet-ke-shop-quan-ao-nam-13-jpg.webp')", backgroundSize: "cover", minHeight: "100vh"  }}>
+      <Form
+        name="normal_login"
+        className="login-form"
+        style={{ maxWidth: 300, margin: 'auto',paddingTop:"200px" }}
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+      >
+        <Form.Item
+          name="username"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your Username!',
+            },
+          ]}
+        >
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your Password!',
+            },
+          ]}
+        >
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Checkbox style={{ color: 'yellow' }}>Remember me</Checkbox>
+          </Form.Item>
+
+          <a className="login-form-forgot" style={{ float: 'right', color: 'blue' }} href="">
+            Forgot password
+          </a>
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
+            Log in
+          </Button>
+          Or <a style={{ color: 'blue' }} href="">register now!</a>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};

@@ -1,6 +1,10 @@
 import "../../../index.css";
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faRightToBracket
+} from "@fortawesome/free-solid-svg-icons";
 export default function Header() {
   return (
     <>
@@ -93,7 +97,7 @@ export default function Header() {
             </div>
             <div className="col-lg-2 header-control">
               <ul className="ul-control">
-              <li className="header-wishlist d-flex">
+                <li className="header-wishlist d-flex">
                   <a
                     title="Sản phẩm yêu thích"
                     href=""
@@ -115,6 +119,9 @@ export default function Header() {
                       </svg>
                     </div>
                   </a>
+                </li>
+                <li className="header-login">
+                  <a style={{ color: "violet" }} href="/login"><FontAwesomeIcon icon={faRightToBracket} /></a>
                 </li>
               </ul>
             </div>
