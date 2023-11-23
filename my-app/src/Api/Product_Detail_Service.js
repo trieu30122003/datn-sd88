@@ -2,7 +2,7 @@ import { instance } from "./instance";
 const API = "/product-detail"
 class Product_Detail_Service {
   getAllProductDetail() {
-    return instance.get(`${API}`);
+    return instance.get(`${API}?page=${page}&limit=${limit}&filter=${filter}`);
   }
   getById(id) {
     return instance.get(`${API}/${id}`);
@@ -16,5 +16,8 @@ class Product_Detail_Service {
   delete(id){
       return instance.delete(`${API}/${id}`);
   }
+  search(name){
+    return instance.get(`${API}/search?productDetail=${name}`);
+}
 }
 export default new Product_Detail_Service();

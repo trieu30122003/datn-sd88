@@ -2,7 +2,7 @@ import { instance } from "./instance";
 const API = "/employee"
 class Employee_Service {
   getAllEmployee() {
-    return instance.get(`${API}`);
+    return instance.get(`${API}?page=${page}&limit=${limit}&filter=${filter}`);
   }
   getById(id) {
     return instance.get(`${API}/${id}`);
@@ -16,8 +16,8 @@ class Employee_Service {
   delete(id){
       return instance.delete(`${API}/${id}`);
   }
-  search(employeeCode){
-    return instance.get(`${API}/search?employeeCode=${employeeCode}`);
+  search(name){
+    return instance.get(`${API}/search?employeeCode=${name}`);
 }
 }
 export default new Employee_Service();

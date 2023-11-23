@@ -1,16 +1,13 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
-import { Button, Input, Pagination, Space, Table } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
-
-import Highlighter from "react-highlight-words";
+import Size_Service from "../../../Api/Size_Service";
+import { Button, Pagination, Space, Table } from 'antd'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPen, faPlus } from "@fortawesome/free-solid-svg-icons";
-import Product_Service from "../../../Api/Product_Service";
+import { faTrash,faPen,faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
-export default function Product_List_Components() {
+export default function () {
   const [pageData, setPageData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -147,105 +144,58 @@ export default function Product_List_Components() {
 
   const fetchData = async (page, limit, filter) => {
     try {
-      const response = await Product_Service.getAllProduct(page, limit, filter);
+      const response = await Color_Service.getAllColor(page, limit, filter);
       setPageData(response.data.list);
       setTotal(response.data.total)
     } catch (error) {
       console.log(error);
     }
   };
-
   const Delete = (e) => {
     console.log(e);
-    Product_Service.delete(e).then((res) => {
+    Color_Service.delete(e).then((res) => {
       if (res.status === 200) {
-        alert("Xóa sản phẩm thành công!");
-        window.location = "/product";
+        alert("Xóa hóa đơn thành công!");
+        window.location = "/color";
       }
     });
   };
   const Edit = (e) => {
-    console.log(e);
-    debugger
-    Product_Service.getById(e).then((res) => {
+    Color_Service.getById(e).then((res) => {
       if (res.status === 200) {
         // alert("Xóa hóa đơn thành công!");
-        window.location = `/product/${res.data.id}`;
+        window.location = `/color/${res.data.id}`;
       }
     });
   };
+  const searchName = (e) => {
+    Color_Service.search(e).then((res) => {
+      
+    })
+  }
   console.log("data", pageData);
 
   const onFilter = (current, pageSize) => {
     if (current == 0) current = 1;
     fetchData(current, pageSize, filter)
   };
-
   const columns = [
     {
-      title: "Tên sản phẩm",
-      dataIndex: "productName",
-      key: "productName",
-      ...getColumnSearchProps("productName"),
-    },
-    {
-      title: "Ảnh",
-      dataIndex: "mainImage",
-      key: "mainImage",
-      render: theImageURL => <img alt={theImageURL} src={theImageURL} />
-    },
-    {
-      title: "Mô tả",
-      dataIndex: "description",
-      key: "description",
-    },
-
-    {
-      title: "Trạng Thái",
-      dataIndex: "status",
-      key: "status",
+      title: 'name',
+      dataIndex: 'colorName',
+      key: 'colorName',
       ...getColumnSearchProps("status"),
     },
-
     {
-      title: 'Ngày tạo',
-      dataIndex: 'createDate',
-      key: 'createDate',
-      render: (text) => {
-        const date = new Date(text);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`;
-        return formattedDate;
-      },
+      title: 'Mã màu',
+      dataIndex: 'colorCode',
+      key: 'colorCode',
+      ...getColumnSearchProps("status"),
     },
     {
-      title: 'Ngày cập nhật',
-      dataIndex: 'updateDate',
-      key: 'updateDate',
-      render: (text) => {
-        const date = new Date(text);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`;
-        return formattedDate;
-      },
-    },
-    {
-      title: "Mã sản phẩm",
-      dataIndex: "productCode",
-      key: "productCode",
-      ...getColumnSearchProps("productCode"),
-    },
-
-
-
-    {
-      title: "Action",
-      dataIndex: "productCode",
-      key: "action",
+      title: 'Action',
+      dataIndex: 'colorCode',
+      key: 'action',
       render: (_, record) => (
         <Space size="middle">
           {/* <a>Invite {record.name}</a> */}
@@ -265,7 +215,7 @@ export default function Product_List_Components() {
   ];
   return (
     <>
-      <Sidebar />
+     <Sidebar />
       <div id="content">
         <main>
           <div className="table-data container">
@@ -275,7 +225,7 @@ export default function Product_List_Components() {
               <div className="head">
                 {/* <i className="bx bx-filter" /> */}
                 <div>
-                  <Link className="btn btn-primary" to="/product/add">
+                  <Link className="btn btn-primary" to="/color/add">
                     <FontAwesomeIcon icon={faPlus} />
                   </Link>
                 </div>

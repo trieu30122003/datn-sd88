@@ -11,25 +11,12 @@ function Employee_Add_Components() {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [encryptedPassword, setEncryptedPassword] = useState("");
-  const [createDate, setCreateDate] = useState("");
-  const [updateDate, setUpdateDate] = useState("");
+  const [createDate, setCreateDate] = useState(null);
+  const [updateDate, setUpdateDate] = useState(null);
   const [image, setImage] = useState("");
   const [employeeCode, setEmployeeCode] = useState("");
   const [status, setStatus] = useState(0);
-  console.log(
-    firstName,
-    lastName,
-    gender,
-    dateOfBirth,
-    email,
-    phoneNumber,
-    encryptedPassword,
-    createDate,
-    updateDate,
-    image,
-    employeeCode,
-    status
-  );
+
   const changeFirstName = (e) => {
     setFirstName(e.target.value);
   };
@@ -128,10 +115,14 @@ function Employee_Add_Components() {
                   <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">Giới tính</label>
+                      <input type="text"
+                        onChange={changeGender}
+                      />
                       <Radio.Group>
                         <Radio value={1}>Nam</Radio>
                         <Radio value={2}>Nữ</Radio>
                       </Radio.Group>
+                      
                     </div>
                   </div>
 

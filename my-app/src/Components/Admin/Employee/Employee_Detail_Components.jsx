@@ -4,10 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import Employee_Service from "../../../Api/Employee_Service";
 
 export default function Employee_Detail_Components() {
-  
   const { employeeCode } = useParams();
-
-  console.log(employeeCode);
   // const [colorCode, setMaMau] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -19,35 +16,29 @@ export default function Employee_Detail_Components() {
   const [createDate, setCreateDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
   const [image, setImage] = useState("");
-
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    // Gửi yêu cầu HTTP để lấy thông tin nhân viên dựa trên employeeCode
-    Employee_Service.getById(employeeCode)
-      .then((res) => {
-        if (res.status === 200) {
-          const employee = res.data;
-          setFirstName(employee.firstName);
-          setLastName(employee.lastName);
-          setGender(employee.gender);
-          setDateOfBirth(employee.dateOfBirth);
-          setEmail(employee.email);
-          setPhoneNumber(employee.phoneNumber);
-          setEncryptedPassword(employee.encryptedPassword);
-          setCreateDate(employee.createDate);
-          setUpdateDate(employee.updateDate);
-          setImage(employee.image);
-          setStatus(employee.status);
-        } else {
-          // Xử lý lỗi hoặc thông báo lỗi cho người dùng
-          console.error("Lỗi khi lấy thông tin nhân viên");
-        }
-      })
-      .catch((error) => {
-        // Xử lý lỗi và thông báo cho người dùng
-        console.error("Lỗi khi lấy thông tin nhân viên:", error);
-      });
+    Employee_Service.getById(employeeCode).then((res) => {
+      let employee = res.data;
+      const NgayTao = new Date(employee.createDate);
+      const formattedDate = NgayTao.toISOString().split("T")[0];
+      const NgaySua = new Date(employee.updateDate);
+      const formattedNgaySua = NgaySua.toISOString().split("T")[0];
+      const NgaySinh = new Date(employee.dateOfBirth);
+      const formattedNgaySinh = NgaySinh.toISOString().split("T")[0];
+      setFirstName(employee.firstName);
+      setLastName(employee.lastName);
+      setGender(employee.gender);
+      setEmail(employee.email);
+      setPhoneNumber(employee.phoneNumber);
+      setEncryptedPassword(employee.encryptedPassword);
+      setCreateDate(formattedDate);
+      setUpdateDate(formattedNgaySua);
+      setDateOfBirth(formattedNgaySinh);
+      setImage(employee.image);
+      setStatus(employee.status);
+    });
   }, [employeeCode]);
 
   const changeFirstName = (e) => {
@@ -59,7 +50,7 @@ export default function Employee_Detail_Components() {
   const changeGender = (e) => {
     setGender(e.target.value);
   };
-  const changeDateOfBirth = (e) => {
+  const changeNgaySinh = (e) => {
     setDateOfBirth(e.target.value);
   };
   const changeEmail = (e) => {
@@ -71,17 +62,17 @@ export default function Employee_Detail_Components() {
   const changeEncryptedPassword = (e) => {
     setEncryptedPassword(e.target.value);
   };
-  const changeCreateDate = (e) => {
+  const changeNgayTao = (e) => {
     setCreateDate(e.target.value);
   };
-  const changeUpdateDate = (e) => {
+  const changeNgaySua = (e) => {
     setUpdateDate(e.target.value);
   };
   const changeImage = (e) => {
     setImage(e.target.value);
   };
   const changeEmployeeCode = (e) => {
-    setEmployeeCode(e.target.value);
+    employeeCode(e.target.value);
   };
   const changeStatus = (e) => {
     setStatus(e.target.value);
@@ -181,7 +172,7 @@ export default function Employee_Detail_Components() {
                         className="form-control"
                         type="date"
                         value={dateOfBirth}
-                        onChange={changeDateOfBirth}
+                        onChange={changeNgaySinh}
                       />
                     </div>
                   </div>
@@ -229,7 +220,7 @@ export default function Employee_Detail_Components() {
                         className="form-control"
                         type="date" // Sử dụng type "date" để hiển thị date picker
                         value={createDate} // Chuyển đổi ngày thành dạng YYYY-MM-DD
-                        onChange={changeCreateDate}
+                        onChange={changeNgayTao}
                       />
                     </div>
                   </div>
@@ -239,13 +230,13 @@ export default function Employee_Detail_Components() {
                       <label className="form-label">Ngày Sửa</label>
                       <input
                         className="form-control"
-                        type="date" 
-                        value={ updateDate} 
-                        onChange={changeUpdateDate}
+                        type="date"
+                        value={updateDate}
+                        onChange={changeNgaySua}
                       />
                     </div>
                   </div>
-                  
+
                   <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">Ảnh </label>
@@ -280,7 +271,7 @@ export default function Employee_Detail_Components() {
                         onChange={changeStatus}
                       />
                     </div>
-                  </div>             
+                  </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12">

@@ -56,12 +56,7 @@ export default function Sidebar() {
               <span className="text">Màu sắc</span>
             </Link>
           </li>
-          <li className={value === "collar" ? "active" : ""}>
-            <Link to="/collar" onClick={() => setValue("collar")}>
-              <i class="bi bi-person-lines-fill"></i>
-              <span className="text">Cúc áo</span>
-            </Link>
-          </li>
+       
           <li className={value === "category" ? "active" : ""}>
             <Link to="/category" onClick={() => setValue("category")}>
               <i class="bi bi-person-lines-fill"></i>

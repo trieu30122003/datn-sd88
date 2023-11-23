@@ -56,15 +56,15 @@ function Brand_Add_Components() {
                   <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">
-                        Mã
+                        Mã hãng
                       </label>
-                      <input className="form-control" type="text" disabled />
+                      <input className="form-control" type="text" onChange={changeMa} disabled />
                     </div>
                   </div>
                   <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">
-                        Tên
+                        Tên hãng
                       </label>
                       <input className="form-control" type="text" onChange={changeTen} />
                     </div>

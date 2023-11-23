@@ -34,6 +34,8 @@ function Category_Add_Components() {
     let category = {
       categoryName,
       categoryCode,
+      createDate,
+      updateDate,
       status,
     };
 

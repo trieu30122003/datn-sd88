@@ -5,8 +5,7 @@ import Brand_Service from "../../../Api/Brand_Service";
 
 export default function Brand_Detail_Components() {
   const { brandCode } = useParams();
-  // console.log(brandCode);
-  // const [colorCode, setMaMau] = useState("");
+  
   const [brandName, setTen] = useState("");
   const [createDate, setCreate] = useState("");
   const [updateDate, setUpdate] = useState("");
@@ -21,6 +20,7 @@ export default function Brand_Detail_Components() {
       const NgaySua = new Date(brand.updateDate);
       const formattedNgaySua = NgaySua.toISOString().split("T")[0];
       setTen(brand.brandName);
+      setStatus(brand.status);
       setCreate(formattedDate);
       setUpdate(formattedNgaySua);
 
@@ -36,10 +36,16 @@ export default function Brand_Detail_Components() {
   const changeNgaySua = (e) => {
     setUpdate(e.target.value);
   }
+  const changeStatus = (e) => {
+    setStatus(e.target.value);
+  }
+  const changeMa = (e) => {
+  brandCode(e.target.value);
+  }
   const update = (e) => {
     e.preventDefault();
     let brand = {
-      // colorCode,
+      brandCode,
       brandName,
       createDate,
       updateDate,
@@ -68,21 +74,30 @@ export default function Brand_Detail_Components() {
                   <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">
-                        Mã
+                        Mã hãng
                       </label>
-                      <input className="form-control" type="text" value={brandCode} disabled/>
+                      <input className="form-control" type="text" value={brandCode} onChange={changeMa} disabled/>
                     </div>
                   </div>
                   <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">
-                        Tên
+                        Tên hãng
                       </label>
                       <input className="form-control" type="text" value={brandName} onChange={changeTen} />
                     </div>
                   </div>
                 </div>
-                <div className="row">
+
+                <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">
+                        Trạng thái
+                      </label>
+                      <input className="form-control" type="text" value={status} onChange={changeStatus} />
+                    </div>
+                  </div>
+
                   <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">
@@ -90,7 +105,7 @@ export default function Brand_Detail_Components() {
                       </label>
                       <input className="form-control" type="date" value={createDate} onChange={changeNgayTao} />
                     </div>
-                  </div>
+                  
                   <div className="col-md-5">
                     <div className="row">
                       <label className="form-label">

@@ -16,7 +16,7 @@ export default function Product_Detail_Components() {
 
   useEffect(() => {
     Product_Service.getById(productCode).then((res) => {
-
+      debugger
       let pr = res.data;
       const NgayTao = new Date(pr.createDate);
       const formattedDate = NgayTao.toISOString().split("T")[0];

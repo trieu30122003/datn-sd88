@@ -13,12 +13,18 @@ export default function Category_List_Components() {
   const [pageData, setPageData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
+  const [total, setTotal] = useState(0);
+  const [filter, setFilter] = useState('');
   const searchInput = useRef(null);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
+    if (selectedKeys && selectedKeys.length > 0) {
+      fetchData(1, 10, selectedKeys[0])
+      setFilter(selectedKeys[0])
+    }
+    // confirm();
+    // setSearchText(selectedKeys[0]);
+    // setSearchedColumn(dataIndex);
   };
 
   const handleReset = (clearFilters) => {
@@ -75,18 +81,18 @@ export default function Category_List_Components() {
             Reset
           </Button>
           {/* <Button
-              type="link"
-              size="small"
-              onClick={() => {
-                confirm({
-                  closeDropdown: false,
-                });
-                setSearchText(selectedKeys[0]);
-                setSearchedColumn(dataIndex);
-              }}
-            >
-              Filter
-            </Button> */}
+            type="link"
+            size="small"
+            onClick={() => {
+              confirm({
+                closeDropdown: false,
+              });
+              setSearchText(selectedKeys[0]);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            Filter
+          </Button> */}
           <Button
             type="link"
             size="small"
@@ -135,15 +141,14 @@ export default function Category_List_Components() {
   });
 
   useEffect(() => {
-    fetchData();
+    fetchData(1, 10, '');
   }, []);
 
-  const fetchData = async () => {
+  const fetchData = async (page, limit, filter) => {
     try {
-      // const response = await axios.get('/api/some-endpoint');
-      const response = await Category_Service.getAllCategory();
-      const data = response.data;
-      setPageData(data);
+      const response = await Category_Service.getAllCategory(page, limit, filter);
+      setPageData(response.data.list);
+      setTotal(response.data.total)
     } catch (error) {
       console.log(error);
     }
@@ -162,7 +167,7 @@ export default function Category_List_Components() {
     console.log(e);
     Category_Service.getById(e).then((res) => {
       if (res.status === 200) {
-        window.location = `/category/${res.data.categoryCode}`;
+        window.location = `/category/${res.data.id}`;
       }
     });
   };
@@ -171,12 +176,16 @@ export default function Category_List_Components() {
   };
   console.log("data", pageData);
 
+  const onFilter = (current, pageSize) => {
+    if (current == 0) current = 1;
+    fetchData(current, pageSize, filter)
+  };
   const columns = [
     {
       title: "Tên Loại ",
       dataIndex: "categoryName",
       key: "categoryName",
-
+      ...getColumnSearchProps("category"),
       filters: [
         {
           text: "Áo",
@@ -188,7 +197,7 @@ export default function Category_List_Components() {
         },
       ],
       onFilter: (value, record) => record.gender,
-      filterSearch: false,
+      filterSearch: true,
       width: "20%",
     },
 
@@ -203,6 +212,7 @@ export default function Category_List_Components() {
       title: "Trạng thái",
       dataIndex: "status",
       key: "status",
+      ...getColumnSearchProps("status"),
     },
 
     {
@@ -231,11 +241,11 @@ export default function Category_List_Components() {
           <Button
             danger
             type="primary"
-            onClick={() => Delete(record.categoryCode)}
+            onClick={() => Delete(record.id)}
           >
             <FontAwesomeIcon icon={faTrash} />
           </Button>
-          <Button type="primary" onClick={() => Edit(record.categoryCode)}>
+          <Button type="primary" onClick={() => Edit(record.id)}>
             <FontAwesomeIcon icon={faPen} />
           </Button>
         </Space>
@@ -259,22 +269,33 @@ export default function Category_List_Components() {
                   </Link>
                 </div>
                 {/* <div style={{ display: "flex", position: "relative", left: "500px" }}>
-                    <input className="form-control" type="text" name="colorName" />
-                    <Link to={`/color/search?colorName=`}>
-                      <i class="btn border bi bi-search"></i>
-                    </Link>
-  
-                  </div> */}
+                  <input className="form-control" type="text" name="colorName" />
+                  <Link to={`/color/search?colorName=`}>
+                    <i class="btn border bi bi-search"></i>
+                  </Link>
+
+                </div> */}
               </div>
               <br />
               <Table
                 columns={columns}
                 dataSource={pageData}
-                pagination={{ pageSize: 5 }}
+              // pagination={{
+              //   defaultPageSize: 2,
+              //   showSizeChanger: true,
+              //   pageSizeOptions: ["1", "2", "5"],
+              // }}
+              />
+              <Pagination
+                showSizeChanger={true}
+                onShowSizeChange={onFilter}
+                onChange={onFilter}
+                total={total}
+                pageSizeOptions={[1, 5, 10, 50]}
               />
               {/* <Pagination
-                  defaultCurrent={0}
-                /> */}
+                defaultCurrent={0}
+              /> */}
             </div>
           </div>
         </main>

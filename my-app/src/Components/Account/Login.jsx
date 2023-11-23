@@ -21,7 +21,7 @@ export default function LoginForm() {
 
   const onFinish = (values) => {
     Authentication_Service.login(values.username, values.password).then((res) => {
-      debugger
+      console.log("res", res)
       if (res.status === 200) {
         localStorage.setItem("userInfo", JSON.stringify(res.data.data));
         return navigate('/');

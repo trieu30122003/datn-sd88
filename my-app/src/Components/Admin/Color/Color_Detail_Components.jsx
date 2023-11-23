@@ -5,33 +5,33 @@ import Color_Service from "../../../Api/Color_Service";
 
 export default function Color_Detail_Components() {
   const { colorCode } = useParams();
-  console.log(colorCode);
-  // const [colorCode, setMaMau] = useState("");
   const [colorName, setTenMau] = useState("");
+
   useEffect(() => {
     Color_Service.getById(colorCode).then((res) => {
       let color = res.data;
       setTenMau(color.colorName);
-
-    })
-  }, [colorCode])
-  
+    });
+  }, [colorCode]);
+  const changeColorCode = (e) => {
+    colorCode(e.target.value);
+  };
   const changeTenMau = (e) => {
     setTenMau(e.target.value);
-  }
+  };
   const update = (e) => {
     e.preventDefault();
     let color = {
       // colorCode,
-      colorName
+      colorName,
     };
-    Color_Service.update(colorCode,color).then((res) => {
+    Color_Service.update(colorCode, color).then((res) => {
       if (res.status === 200) {
         alert("Update màu sắc thành công!");
         window.location = `/color`;
       }
     });
-  }
+  };
 
   return (
     <>
@@ -47,18 +47,25 @@ export default function Color_Detail_Components() {
                 <div className="row">
                   <div className="col-md-5">
                     <div className="row">
-                      <label className="form-label">
-                        Mã màu
-                      </label>
-                      <input className="form-control" type="text"  value={colorCode} disabled/>
+                      <label className="form-label">Mã màu</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={colorCode}
+                        onChange={changeColorCode}
+                        disabled
+                      />
                     </div>
                   </div>
                   <div className="col-md-5">
                     <div className="row">
-                      <label className="form-label">
-                        Tên màu
-                      </label>
-                      <input className="form-control" type="text" value={colorName} onChange={changeTenMau}/>
+                      <label className="form-label">Tên màu</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={colorName}
+                        onChange={changeTenMau}
+                      />
                     </div>
                   </div>
                 </div>
@@ -67,11 +74,21 @@ export default function Color_Detail_Components() {
                     <div className="row">
                       <div className="col-md-5">
                         <br />
-                        <button type="submit" className="btn btn-success" onClick={update}>UpDate</button>
+                        <button
+                          type="submit"
+                          className="btn btn-success"
+                          onClick={update}
+                        >
+                          UpDate
+                        </button>
                       </div>
                       <div className="col-md-2">
                         <br />
-                        <div className="col-md-2 padd2"><Link className="btn btn-danger" to="/color">Back</Link></div>
+                        <div className="col-md-2 padd2">
+                          <Link className="btn btn-danger" to="/color">
+                            Back
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -82,5 +99,5 @@ export default function Color_Detail_Components() {
         </main>
       </section>
     </>
-  )
+  );
 }

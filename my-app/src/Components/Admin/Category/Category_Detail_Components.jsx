@@ -40,6 +40,9 @@ export default function Category_Detail_Components() {
   const changeStatus = (e) => {
     setStatus(e.target.value);
   };
+  const changeCategoryCode = (e) => {
+    categoryCode(e.target.value);
+  };
   const update = (e) => {
     e.preventDefault();
     let category = {
@@ -76,6 +79,18 @@ export default function Category_Detail_Components() {
                         type="text"
                         value={categoryName}
                         onChange={changeCategoryName}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-5">
+                    <div className="row">
+                      <label className="form-label">mã loại </label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={categoryCode}
+                        onChange={changeCategoryCode}
                       />
                     </div>
                   </div>

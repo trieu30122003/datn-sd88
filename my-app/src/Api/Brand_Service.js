@@ -18,7 +18,8 @@ class Brand_Service{
       return instance.delete(`${API}/${id}`);
   }
   search(name){
-      return instance.get(`${API}/search?colorName=${name}`);
+      return instance.get(`${API}/search?brandName=${name}`);
   }
+  
 }
 export default new Brand_Service();

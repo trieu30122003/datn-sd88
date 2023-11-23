@@ -14,14 +14,14 @@ import Bill_List_Conponents from "./Components/Admin/Bill/Bill_List_Conponents";
 import Bill_Detail_Components from "./Components/Admin/Bill/Bill_Detail_Conponents";
 import Bill_Add_Components from "./Components/Admin/Bill/Bill_ViewAdd_Conponents";
 
-import Brand_List_Components from "./Components/Admin/Brand/Brand_List_Component";
-
 import Color_List_Components from "./Components/Admin/Color/Color_List_Components";
 import Color_Add_Components from "./Components/Admin/Color/Color_Add_Components";
 import Color_Detail_Components from "./Components/Admin/Color/Color_Detail_Components";
 
 import Brand_Add_Components from "./Components/Admin/Brand/Brand_Add_Components";
 import Brand_Detail_Components from "./Components/Admin/Brand/Brand_Detail_Components";
+import Brand_List_Components from "./Components/Admin/Brand/Brand_List_Component";
+
 import Customer_List_Components from "./Components/Admin/Customer/Customer_List_Components";
 import Customer_Add_Components from "./Components/Admin/Customer/Customer_Add_Conponents";
 import Customer_Detail_Components from "./Components/Admin/Customer/Customer_Detail_Components";
@@ -34,6 +34,7 @@ import Product_Detail_Components from "./Components/Admin/Product/Product_Detail
 import Employee_List_Components from "./Components/Admin/Employee/Employee_List_Components";
 import Employee_Add_Components from "./Components/Admin/Employee/Employee_Add_Components";
 import Employee_Detail_Components from "./Components/Admin/Employee/Employee_Detail_Components";
+
 import Product_detail_page from "./Components/Home/Product_detail._page";
 import Order_Confirmation from "./Components/Admin/Bill/Order_Confirmation";
 import All_Product from "./Components/Home/All_Product";

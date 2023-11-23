@@ -13,11 +13,18 @@ export default function Employee_List_Components() {
   const [pageData, setPageData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
+  const [total, setTotal] = useState(0);
+  const [filter, setFilter] = useState('');
   const searchInput = useRef(null);
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
+    if (selectedKeys && selectedKeys.length > 0) {
+      fetchData(1, 10, selectedKeys[0])
+      setFilter(selectedKeys[0])
+    }
+    // confirm();
+    // setSearchText(selectedKeys[0]);
+    // setSearchedColumn(dataIndex);
   };
 
   const handleReset = (clearFilters) => {
@@ -132,17 +139,16 @@ export default function Employee_List_Components() {
         text
       ),
   });
-  
+
   useEffect(() => {
-    fetchData();
+    fetchData(1, 10, '');
   }, []);
 
-  const fetchData = async () => {
+  const fetchData = async (page, limit, filter) => {
     try {
-      // const response = await axios.get('/api/some-endpoint');
-      const response = await Employee_Service.getAllEmployee();
-      const data = response.data;
-      setPageData(data);
+      const response = await Employee_Service.getAllEmployee(page, limit, filter);
+      setPageData(response.data.list);
+      setTotal(response.data.total)
     } catch (error) {
       console.log(error);
     }
@@ -162,16 +168,17 @@ export default function Employee_List_Components() {
     Employee_Service.getById(e).then((res) => {
       if (res.status === 200) {
         // alert("Xóa hóa đơn thành công!");
-        window.location = `/employee/${res.data.employeeCode}`;
+        window.location = `/employee/${res.data.id}`;
       }
     });
   };
-  const searchName = (e) => {
-    Color_Service.search(e).then((res) => {
-      
-    })
-  }
+  c
   console.log("data", pageData);
+
+  const onFilter = (current, pageSize) => {
+    if (current == 0) current = 1;
+    fetchData(current, pageSize, filter)
+  };
 
   const columns = [
     {
@@ -231,6 +238,7 @@ export default function Employee_List_Components() {
       title: "Ảnh",
       dataIndex: "image",
       key: "image",
+      render: theImageURL => <img alt={theImageURL} src={theImageURL} />
     },
     {
       title: "Mã Nhân Viên",
@@ -250,8 +258,16 @@ export default function Employee_List_Components() {
       render: (_, record) => (
         <Space size="middle">
           {/* <a>Invite {record.name}</a> */}
-          <Button danger type="primary" onClick={() => Delete(record.employeeCode)}><FontAwesomeIcon icon={faTrash} /></Button>
-          <Button type="primary" onClick={() => Edit(record.employeeCode)}><FontAwesomeIcon icon={faPen} /></Button>
+          <Button
+            danger
+            type="primary"
+            onClick={() => Delete(record.id)}
+          >
+            <FontAwesomeIcon icon={faTrash} />
+          </Button>
+          <Button type="primary" onClick={() => Edit(record.id)}>
+            <FontAwesomeIcon icon={faPen} />
+          </Button>
         </Space>
       ),
     },
@@ -263,12 +279,14 @@ export default function Employee_List_Components() {
         <main>
           <div className="table-data container">
             <div className="order">
-              <h2 style={{ textAlign: "center" }}>Nhân Viên</h2>
+              <h2 style={{ textAlign: "center" }}>Sản Phẩm</h2>
               <br />
               <div className="head">
                 {/* <i className="bx bx-filter" /> */}
                 <div>
-                  <Link className="btn btn-primary" to='/employee/add'><FontAwesomeIcon icon={faPlus} /></Link>
+                  <Link className="btn btn-primary" to="/employee/add">
+                    <FontAwesomeIcon icon={faPlus} />
+                  </Link>
                 </div>
                 {/* <div style={{ display: "flex", position: "relative", left: "500px" }}>
                   <input className="form-control" type="text" name="colorName" />
@@ -279,7 +297,22 @@ export default function Employee_List_Components() {
                 </div> */}
               </div>
               <br />
-              <Table columns={columns} dataSource={pageData} pagination={{ pageSize: 5 }}/>
+              <Table
+                columns={columns}
+                dataSource={pageData}
+              // pagination={{
+              //   defaultPageSize: 2,
+              //   showSizeChanger: true,
+              //   pageSizeOptions: ["1", "2", "5"],
+              // }}
+              />
+              <Pagination
+                showSizeChanger={true}
+                onShowSizeChange={onFilter}
+                onChange={onFilter}
+                total={total}
+                pageSizeOptions={[1, 5, 10, 50]}
+              />
               {/* <Pagination
                 defaultCurrent={0}
               /> */}
@@ -288,5 +321,5 @@ export default function Employee_List_Components() {
         </main>
       </div>
     </>
-  )
+  );
 }

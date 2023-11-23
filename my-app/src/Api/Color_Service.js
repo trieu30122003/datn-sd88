@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { instance } from "./instance";
 const API = "/color"
 class Color_Service {
   getAllColor() {
-    return instance.get(API);
+    return instance.get(`${API}?page=${page}&limit=${limit}&filter=${filter}`);
   }
   getById(id) {
     return instance.get(`${API}/${id}`);
