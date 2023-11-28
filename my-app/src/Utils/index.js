@@ -1,0 +1,1 @@
+export const getUser = localStorage.getItem("userInfo"); 

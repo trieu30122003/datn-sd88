@@ -1,19 +1,18 @@
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 // import { Route, Redirect } from 'react-router-dom';
+axios.defaults.baseURL = 'http://localhost:8080';
 
-const PORT = 'http://localhost:8080';
+export const PORT = 'http://localhost:8080';
+
 
 export const instance = axios.create({
   baseURL: PORT,
-  // timeout: 10000,
-  withCredentials: true,
   headers: {
-    'Authorization': 'Bearer',
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     "Access-Control-Allow-Origin": "*"
-  },
+  }
 });
 
 instance.interceptors.request.use(
@@ -22,9 +21,7 @@ instance.interceptors.request.use(
     if (userInfoStr) {
       const userInfo = userInfoStr ? JSON.parse(userInfoStr) : null;
       config.headers.Authorization = `Bearer ${userInfo?.token}`;
-    }
-
-   
+    } 
     return config;
     
   },
@@ -39,11 +36,13 @@ instance.interceptors.response.use(
     return response.data;
   },
   function (error) {
-    Promise.reject(error)
-    return  <Navigate replace to="/login" />;
+    // Promise.reject(error)
+    // return  <Navigate replace to="/login" />;
     
     
-    // history.replace('/login');
-    // return Promise.reject(error)
+    history.replace('/login');
+    return Promise.reject(error)
   }
 );
+
+
