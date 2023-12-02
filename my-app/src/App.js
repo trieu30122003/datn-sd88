@@ -1,4 +1,10 @@
-import { Routes, Route, useNavigate, redirect } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  redirect,
+  Navigate,
+} from "react-router-dom";
 import "../src/style/js/swiper.scss.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Home_Page from "./Components/Home/Home_Page.jsx";
@@ -26,7 +32,6 @@ import Customer_List_Components from "./Components/Admin/Customer/Customer_List_
 import Customer_Add_Components from "./Components/Admin/Customer/Customer_Add_Conponents";
 import Customer_Detail_Components from "./Components/Admin/Customer/Customer_Detail_Components";
 
-
 import Product_List_Components from "./Components/Admin/Product/Product_List_Components";
 import Product_Add_Components from "./Components/Admin/Product/Product_Add_Components";
 import Product_Detail_Components from "./Components/Admin/Product/Product_Detail_Components.jsx";
@@ -40,53 +45,127 @@ import Order_Confirmation from "./Components/Admin/Bill/Order_Confirmation";
 import All_Product from "./Components/Home/All_Product";
 import LoginForm from "./Components/Account/Login.jsx";
 import { getUser } from "./Utils/index.js";
+import NotFound from "./Components/Admin/NotFound/index.js";
 import { useEffect } from "react";
-function App() {
-  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if(!getUser) return navigate('/login');
-  // }, [getUser])
- 
+function App() {
+  const user = getUser();
+
+ useEffect(() => {
+  user && <Navigate  to="/" replace={true}/>
+ }, [user])
   return (
     <div className="App">
-      <Routes>
-        <Route path="/login" element={<LoginForm />}></Route>
-        <Route path="/register" element={<Register />}></Route>
-        <Route path="/" excact element={getUser && <Home_Page />}></Route>
-        <Route path="/home" element={<Home_Page />}></Route>
-        <Route path={APP_ROUTERS.HOME.DETAIL.VALUE} element={getUser && <Product_detail_page />}></Route>
-        <Route path={APP_ROUTERS.HOME.ALL.VALUE} element={getUser && <All_Product />}></Route>
-        <Route path="/about" element={getUser && <About />}></Route>
-        <Route path="/service" element={getUser && <Service />}></Route>
-        <Route path="/booking" element={getUser && <Booking />}></Route>
-        <Route path="/contact" element={getUser && <Contact />}></Route>
+      {user ? (
+        <Routes>
+          <Route path="/" excact element={<Home_Page />}></Route>
+          <Route path="/home" element={<Home_Page />}></Route>
+          <Route
+            path={APP_ROUTERS.HOME.DETAIL.VALUE}
+            element={<Product_detail_page />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.HOME.ALL.VALUE}
+            element={<All_Product />}
+          ></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/service" element={<Service />}></Route>
+          <Route path="/booking" element={<Booking />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
 
-        <Route path={APP_ROUTERS.BILL.INDEX.VALUE} element={getUser && <Bill_List_Conponents />}></Route>
-        <Route path={APP_ROUTERS.BILL.DETAIL.VALUE} element={getUser && <Bill_Detail_Components />}></Route>
-        <Route path={APP_ROUTERS.BILL.VIEW_ADD.VALUE} element={getUser && <Bill_Add_Components />}></Route>
-        <Route path={APP_ROUTERS.BILL.CONFIRM.VALUE} element={getUser && <Order_Confirmation />}></Route>
+          <Route
+            path={APP_ROUTERS.BILL.INDEX.VALUE}
+            element={<Bill_List_Conponents />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.BILL.DETAIL.VALUE}
+            element={<Bill_Detail_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.BILL.VIEW_ADD.VALUE}
+            element={<Bill_Add_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.BILL.CONFIRM.VALUE}
+            element={<Order_Confirmation />}
+          ></Route>
 
-        <Route path={APP_ROUTERS.COLOR.INDEX.VALUE} element={getUser && <Color_List_Components />}></Route>
-        <Route path={APP_ROUTERS.COLOR.VIEW_ADD.VALUE} element={getUser && <Color_Add_Components />}></Route>
-        <Route path={APP_ROUTERS.COLOR.DETAIL.VALUE} element={getUser && <Color_Detail_Components />}></Route>
+          <Route
+            path={APP_ROUTERS.COLOR.INDEX.VALUE}
+            element={<Color_List_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.COLOR.VIEW_ADD.VALUE}
+            element={<Color_Add_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.COLOR.DETAIL.VALUE}
+            element={<Color_Detail_Components />}
+          ></Route>
 
-        <Route path={APP_ROUTERS.BRAND.INDEX.VALUE} element={getUser && <Brand_List_Components />}></Route>
-        <Route path={APP_ROUTERS.BRAND.VIEW_ADD.VALUE} element={getUser && <Brand_Add_Components />}></Route>
-        <Route path={APP_ROUTERS.BRAND.DETAIL.VALUE} element={getUser && <Brand_Detail_Components />}></Route>
+          <Route
+            path={APP_ROUTERS.BRAND.INDEX.VALUE}
+            element={<Brand_List_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.BRAND.VIEW_ADD.VALUE}
+            element={<Brand_Add_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.BRAND.DETAIL.VALUE}
+            element={<Brand_Detail_Components />}
+          ></Route>
 
-        <Route path={APP_ROUTERS.Customer.INDEX.VALUE} element={getUser && <Customer_List_Components />}></Route>
-        <Route path={APP_ROUTERS.Customer.VIEW_ADD.VALUE} element={getUser && <Customer_Add_Components />}></Route>
-        <Route path={APP_ROUTERS.Customer.DETAIL.VALUE} element={getUser && <Customer_Detail_Components />}></Route>
+          <Route
+            path={APP_ROUTERS.Customer.INDEX.VALUE}
+            element={<Customer_List_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.Customer.VIEW_ADD.VALUE}
+            element={<Customer_Add_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.Customer.DETAIL.VALUE}
+            element={<Customer_Detail_Components />}
+          ></Route>
 
-        <Route path={APP_ROUTERS.PRODUCT.INDEX.VALUE} element={getUser && <Product_List_Components />}></Route>
-        <Route path={APP_ROUTERS.PRODUCT.VIEW_ADD.VALUE} element={getUser && <Product_Add_Components />}></Route>
-        <Route path={APP_ROUTERS.PRODUCT.DETAIL.VALUE} element={getUser && <Product_Detail_Components />}></Route>
+          <Route
+            path={APP_ROUTERS.PRODUCT.INDEX.VALUE}
+            element={<Product_List_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.PRODUCT.VIEW_ADD.VALUE}
+            element={<Product_Add_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.PRODUCT.DETAIL.VALUE}
+            element={<Product_Detail_Components />}
+          ></Route>
 
-        <Route path={APP_ROUTERS.EMPLOYEE.INDEX.VALUE} element={getUser && <Employee_List_Components />}></Route>
-        <Route path={APP_ROUTERS.EMPLOYEE.VIEW_ADD.VALUE} element={getUser && <Employee_Add_Components />}></Route>
-        <Route path={APP_ROUTERS.EMPLOYEE.DETAIL.VALUE} element={getUser && <Employee_Detail_Components />}></Route>
-      </Routes>
+          <Route
+            path={APP_ROUTERS.EMPLOYEE.INDEX.VALUE}
+            element={<Employee_List_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.EMPLOYEE.VIEW_ADD.VALUE}
+            element={<Employee_Add_Components />}
+          ></Route>
+          <Route
+            path={APP_ROUTERS.EMPLOYEE.DETAIL.VALUE}
+            element={<Employee_Detail_Components />}
+          ></Route>
+           <Route path="/login" element={<LoginForm />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route element={<NotFound />} path="*" /> 
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<LoginForm />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route element={<NotFound />} path="*" /> 
+        </Routes>
+      )}
     </div>
   );
 }

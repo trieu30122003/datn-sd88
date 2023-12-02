@@ -15,7 +15,7 @@ export default function Home_Page() {
 
   const fetchData = async () => {
     try {
-      const response = await Product_Service.getAllColor();
+      const response = await Product_Service.getAllProduct(1, 50, '');
       const data = response.data;
       setPageData(data);
     } catch (error) {

@@ -15,34 +15,34 @@ export const instance = axios.create({
   }
 });
 
-instance.interceptors.request.use(
-  function (config) {
-    const userInfoStr = localStorage.getItem("userInfo");
-    if (userInfoStr) {
-      const userInfo = userInfoStr ? JSON.parse(userInfoStr) : null;
-      config.headers.Authorization = `Bearer ${userInfo?.token}`;
-    } 
-    return config;
+// instance.interceptors.request.use(
+//   function (config) {
+//     const userInfoStr = localStorage.getItem("userInfo");
+//     if (userInfoStr) {
+//       const userInfo = userInfoStr ? JSON.parse(userInfoStr) : null;
+//       config.headers.Authorization = `Bearer ${userInfo?.token}`;
+//     } 
+//     return config;
     
-  },
-  function (error) {
+//   },
+//   function (error) {
    
-    return Promise.reject(error);
-  }
-);
+//     return Promise.reject(error);
+//   }
+// );
 
-instance.interceptors.response.use(
-  function (response) {
-    return response.data;
-  },
-  function (error) {
-    // Promise.reject(error)
-    // return  <Navigate replace to="/login" />;
+// instance.interceptors.response.use(
+//   function (response) {
+//     return response.data;
+//   },
+//   function (error) {
+//     // Promise.reject(error)
+//     // return  <Navigate replace to="/login" />;
     
     
-    history.replace('/login');
-    return Promise.reject(error)
-  }
-);
+//     history.replace('/login');
+//     return Promise.reject(error)
+//   }
+// );
 
 
