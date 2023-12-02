@@ -32,6 +32,12 @@ export default function Sidebar() {
               <span className="text">Sản phẩm</span>
             </Link>
           </li>
+          <li className={value === "product" ? "active" : ""}>
+            <Link to="/product" onClick={() => setValue("product-detail")}>
+              <FontAwesomeIcon icon={faShirt} />
+              <span className="text">Sản phẩm chi tiết</span>
+            </Link>
+          </li>
           <li className={value === "bill" ? "active" : ""}>
             <Link to="/bill" onClick={() => setValue("bill")}>
               <i class="bi bi-receipt"></i>
@@ -56,7 +62,7 @@ export default function Sidebar() {
               <span className="text">Màu sắc</span>
             </Link>
           </li>
-       
+
           <li className={value === "category" ? "active" : ""}>
             <Link to="/category" onClick={() => setValue("category")}>
               <i class="bi bi-person-lines-fill"></i>
@@ -69,7 +75,7 @@ export default function Sidebar() {
               <span className="text">Khách hàng</span>
             </Link>
           </li>
-        
+
           <li className={value === "size" ? "active" : ""}>
             <Link to="/size" onClick={() => setValue("bill")}>
               <i class="bi bi-person-lines-fill"></i>

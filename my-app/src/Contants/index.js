@@ -28,9 +28,9 @@ export const APP_ROUTERS = {
   HOME: {
     DETAIL: {
       LABEL: 'TRANG CHU',
-    VALUE: '/product-detail-page/:id'
+      VALUE: '/product-detail-page/:id'
     },
-    
+
     ALL: {
       LABEL: 'TRANG CHU',
       VALUE: '/all-product'
@@ -112,7 +112,7 @@ export const APP_ROUTERS = {
     },
   },
 
-  
+
   CATEGORY: {
     INDEX: {
       LABEL: "QUAN LI LOẠI",
@@ -128,20 +128,20 @@ export const APP_ROUTERS = {
     },
   },
 
-  COLLAR: {
+  PRODUCTDETAIL: {
     INDEX: {
-      LABEL: "QUAN LI CUC AO",
-      VALUE: "/collar",
+      LABEL: "QUAN LI SAN PHAM CHI TIET",
+      VALUE: "/product-detail",
     },
     VIEW_ADD: {
-      LABEL: "QUAN LI CUC AO",
-      VALUE: "/collar/add",
+      LABEL: "QUAN LI SAN PHAM CHI TIET",
+      VALUE: "/product-detail/add",
     },
     DETAIL: {
-      LABEL: "QUAN LI CUC AO",
-      VALUE: "/collar/:collarCode",
+      LABEL: "QUAN LI SAN PHAM CHI TIET",
+      VALUE: "/product-detail/:productDetailCode",
     },
   },
 
-  
+
 };

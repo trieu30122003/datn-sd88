@@ -26,7 +26,6 @@ import Customer_List_Components from "./Components/Admin/Customer/Customer_List_
 import Customer_Add_Components from "./Components/Admin/Customer/Customer_Add_Conponents";
 import Customer_Detail_Components from "./Components/Admin/Customer/Customer_Detail_Components";
 
-
 import Product_List_Components from "./Components/Admin/Product/Product_List_Components";
 import Product_Add_Components from "./Components/Admin/Product/Product_Add_Components";
 import Product_Detail_Components from "./Components/Admin/Product/Product_Detail_Components.jsx";
@@ -35,11 +34,20 @@ import Employee_List_Components from "./Components/Admin/Employee/Employee_List_
 import Employee_Add_Components from "./Components/Admin/Employee/Employee_Add_Components";
 import Employee_Detail_Components from "./Components/Admin/Employee/Employee_Detail_Components";
 
+
 import Product_detail_page from "./Components/Home/Product_detail._page";
 import Order_Confirmation from "./Components/Admin/Bill/Order_Confirmation";
 import All_Product from "./Components/Home/All_Product";
 import LoginForm from "./Components/Account/Login.jsx";
 function App() {
+
+
+
+  // useEffect(() => {
+  //   if(!getUser) return navigate('/login');
+  // }, [getUser])
+
+
   return (
     <div className="App">
       <Routes>
@@ -75,9 +83,19 @@ function App() {
         <Route path={APP_ROUTERS.PRODUCT.VIEW_ADD.VALUE} element={<Product_Add_Components />}></Route>
         <Route path={APP_ROUTERS.PRODUCT.DETAIL.VALUE} element={<Product_Detail_Components />}></Route>
 
+
         <Route path={APP_ROUTERS.EMPLOYEE.INDEX.VALUE} element={<Employee_List_Components />}></Route>
         <Route path={APP_ROUTERS.EMPLOYEE.VIEW_ADD.VALUE} element={<Employee_Add_Components />}></Route>
         <Route path={APP_ROUTERS.EMPLOYEE.DETAIL.VALUE} element={<Employee_Detail_Components />}></Route>
+
+        <Route path={APP_ROUTERS.EMPLOYEE.INDEX.VALUE} element={getUser && <Employee_List_Components />}></Route>
+        <Route path={APP_ROUTERS.EMPLOYEE.VIEW_ADD.VALUE} element={getUser && <Employee_Add_Components />}></Route>
+        <Route path={APP_ROUTERS.EMPLOYEE.DETAIL.VALUE} element={getUser && <Employee_Detail_Components />}></Route>
+
+        {/* <Route path={APP_ROUTERS.PRODUCTDETAIL.INDEX.VALUE} element={getUser && <Product />}></Route>
+        <Route path={APP_ROUTERS.PRODUCTDETAIL.VIEW_ADD.VALUE} element={getUser && <Pro />}></Route>
+        <Route path={APP_ROUTERS.PRODUCTDETAIL.DETAIL.VALUE} element={getUser && <Employee_Detail_Components />}></Route> */}
+
       </Routes>
     </div>
   );

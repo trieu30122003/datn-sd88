@@ -10,14 +10,14 @@ class Product_Detail_Service {
   save(product) {
     return instance.post(API, product);
   }
-  update(id,product){
-      return instance.put(`${API}/${id}`,product);
+  update(id, product) {
+    return instance.put(`${API}/${id}`, product);
   }
-  delete(id){
-      return instance.delete(`${API}/${id}`);
+  delete(id) {
+    return instance.delete(`${API}/${id}`);
   }
-  search(name){
+  search(name) {
     return instance.get(`${API}/search?productDetail=${name}`);
-}
+  }
 }
 export default new Product_Detail_Service();

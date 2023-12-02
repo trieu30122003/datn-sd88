@@ -30,11 +30,11 @@ export default function LoginForm() {
   };
 
   return (
-    <div style={{ background: "url('https://anlocgroup.com/wp-content/uploads/2023/05/thiet-ke-shop-quan-ao-nam-13-jpg.webp')", backgroundSize: "cover", minHeight: "100vh"  }}>
+    <div style={{ background: "url('https://anlocgroup.com/wp-content/uploads/2023/05/thiet-ke-shop-quan-ao-nam-13-jpg.webp')", backgroundSize: "cover", minHeight: "100vh" }}>
       <Form
         name="normal_login"
         className="login-form"
-        style={{ maxWidth: 300, margin: 'auto',paddingTop:"200px" }}
+        style={{ maxWidth: 300, margin: 'auto', paddingTop: "200px" }}
         initialValues={{
           remember: true,
         }}
