@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "../Layout/Sidebar";
 import { Button, Input, Pagination, Space, Table } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
@@ -8,6 +8,7 @@ import Highlighter from "react-highlight-words";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPen, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Product_Service from "../../../Api/Product_Service";
+import { getUser } from "../../../Utils";
 
 
 export default function Product_List_Components() {
@@ -17,6 +18,7 @@ export default function Product_List_Components() {
   const [total, setTotal] = useState(0);
   const [filter, setFilter] = useState('');
   const searchInput = useRef(null);
+
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     if (selectedKeys && selectedKeys.length > 0) {
@@ -148,15 +150,15 @@ export default function Product_List_Components() {
   const fetchData = async (page, limit, filter) => {
     try {
       const response = await Product_Service.getAllProduct(page, limit, filter);
-      setPageData(response.data.list);
-      setTotal(response.data.total)
+      setPageData(response.list);
+      setTotal(response.total)
     } catch (error) {
       console.log(error);
     }
   };
 
   const Delete = (e) => {
-    console.log(e);
+    console.log("del", e);
     Product_Service.delete(e).then((res) => {
       if (res.status === 200) {
         alert("Xóa sản phẩm thành công!");
@@ -165,8 +167,6 @@ export default function Product_List_Components() {
     });
   };
   const Edit = (e) => {
-    console.log(e);
-    debugger
     Product_Service.getById(e).then((res) => {
       if (res.status === 200) {
         // alert("Xóa hóa đơn thành công!");
@@ -174,7 +174,6 @@ export default function Product_List_Components() {
       }
     });
   };
-  console.log("data", pageData);
 
   const onFilter = (current, pageSize) => {
     if (current == 0) current = 1;

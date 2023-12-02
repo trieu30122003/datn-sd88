@@ -1,30 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "../../index.css"
 import { Button, Checkbox, Form, Input, Select } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Authentication_Service from '../../Api/Authentication_Service';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { getUser } from '../../Utils';
+// const layout = {
+//   labelCol: { span: 8 },
+//   wrapperCol: { span: 16 },
+// };
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
+// const tailLayout = {
+//   wrapperCol: { offset: 8, span: 16 },
+// };
 
 export default function LoginForm() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
-
   const onFinish = (values) => {
-    Authentication_Service.login(values.username, values.password).then((res) => {
-      console.log("res", res)
-      if (res.status === 200) {
+    const { username, password } = values
+    if(!username || !password) return ;
+
+    Authentication_Service.login(username, password).then((res) => {
+      console.log(res);
+      if (res.data.data && res.status === 200 ) {
         localStorage.setItem("userInfo", JSON.stringify(res.data.data));
-        return navigate('/');
+        navigate("/home")
       }
     });
   };

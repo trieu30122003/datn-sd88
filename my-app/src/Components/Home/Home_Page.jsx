@@ -5,14 +5,17 @@ import Header from "./Layout/Header";
 import Footer from "./Layout/Footer";
 import swiper from "../../style/js/swiper";
 import Product_Service from "../../Api/Product_Service";
+import { getUser } from "../../Utils";
 export default function Home_Page() {
   const [pageData, setPageData] = useState([]);
+
   useEffect(() => {
     fetchData();
   }, []);
+
   const fetchData = async () => {
     try {
-      const response = await Product_Service.getAllColor();
+      const response = await Product_Service.getAllProduct(1, 50, '');
       const data = response.data;
       setPageData(data);
     } catch (error) {

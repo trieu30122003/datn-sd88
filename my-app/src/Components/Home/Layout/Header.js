@@ -1,11 +1,18 @@
 import "../../../index.css";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRightToBracket
 } from "@fortawesome/free-solid-svg-icons";
 export default function Header() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear("userInfo")
+    navigate('/login');
+  }
+
   return (
     <>
       <header className="header">
@@ -121,7 +128,7 @@ export default function Header() {
                   </a>
                 </li>
                 <li className="header-login">
-                  <a style={{ color: "violet" }} href="/login"><FontAwesomeIcon icon={faRightToBracket} /></a>
+                  <a style={{ color: "violet" }}  onClick={handleLogout}><FontAwesomeIcon icon={faRightToBracket} /></a>
                 </li>
               </ul>
             </div>
